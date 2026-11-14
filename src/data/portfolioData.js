@@ -29,6 +29,7 @@ const portfolioData = {
     cvUrl: "#contact",
     marqueeItems: [
       "MUHAMMAD ADHITYA PRATAMA // MAVEYYVLGD",
+      "MCA — MEDICAL CODING ASSISTANT (AI RAG & ICD-10)",
       "RSUD VOLDIGOAD HIS & EHR CREATOR",
       "E-SOP KLINIK ASY-SYIFA HUSADA",
       "HOSPITAL STATISTICS CALCULATOR (WEB & APK)",
@@ -36,7 +37,7 @@ const portfolioData = {
       "COFFEE • GAMING • GOOD MUSIC • VIBE CODING",
     ],
     stats: [
-      { value: "04", label: "FEATURED DROPS", code: "DRP // 01" },
+      { value: "05", label: "FEATURED DROPS", code: "DRP // 01" },
       { value: "20+", label: "CLINICAL & EHR MODULES", code: "MED // 02" },
       { value: "100%", label: "PURE VIBE CODING", code: "VIB // 03" },
     ],
@@ -52,7 +53,7 @@ const portfolioData = {
       "A Health Information Management (RMIK) enthusiast from Pacitan who refuses to be limited by complex syntax—turning real healthcare workflows into working apps through Vibe Coding.",
     paragraphs: [
       "What's up! I'm Muhammad Adhitya Pratama—though you'll mostly find the signature MaveyyVlgd (or MvyVlgd) stamped across my digital builds. Based in Pacitan, East Java, my academic and daily foundation lies in Health Information Management & Medical Records (RMIK).",
-      "To keep it real: I'm not an IT major and I don't write code from scratch the traditional way. But I have a deep passion for digital culture, visual design, and problem solving. Through Vibe Coding, I translate my medical records domain knowledge into living software—from a 20-module Hospital Information System & Electronic Medical Record (RSUD Voldigoad), to an Internal Clinic E-SOP System (Klinik Asy-Syifa Husada), and a Hospital Statistics Calculator for Web & Android.",
+      "To keep it real: I'm not an IT major and I don't write code from scratch the traditional way. But I have a deep passion for digital culture, visual design, and problem solving. Through Vibe Coding, I translate my medical records domain knowledge into living software—from an AI-powered Medical Coding Assistant (MCA), to a 20-module Hospital Information System & Electronic Medical Record (RSUD Voldigoad), an Internal Clinic E-SOP System (Klinik Asy-Syifa Husada), and a Hospital Statistics Calculator for Web & Android.",
     ],
     quote:
       "“You don’t need to be a traditional programmer to build cool stuff. Understand the problem, set the vibe, and make it real.”",
@@ -100,6 +101,7 @@ const portfolioData = {
           { name: "Prompt-to-Product Execution", level: 96, tag: "VIBE CODING" },
           { name: "AI-Assisted Fullstack Building", level: 95, tag: "BUILDER" },
           { name: "System Workflow & UI/UX Direction", level: 92, tag: "SYSTEM FLOW" },
+          { name: "RAG & Vector Search Integration", level: 94, tag: "AI / PGVECTOR" },
           { name: "Portable & Standalone App Packaging", level: 90, tag: "DEPLOYMENT" },
         ],
       },
@@ -135,6 +137,39 @@ const portfolioData = {
     {
       id: "drop-01",
       dropNumber: "DROP // 001",
+      title: "MCA // MEDICAL CODING ASSISTANT",
+      subtitle: "AI-Assisted ICD-10 Search, Source-Grounded RAG, & Collaborative Coding Workspace",
+      category: "Health-Tech & AI",
+      year: "2026",
+      featured: true,
+      accentColor: "#7C6CF2", // Electric Lavender / Purple
+      visualTheme: "mca",
+      imageUrl: "",
+      summary:
+        "An AI-powered ICD-10 clinical coding reference, terminology lookup, and collaborative review platform designed for medical record and health information management (RMIK/PMIK) professionals.",
+      challenge:
+        "Medical coding requires strict accuracy and official source provenance without hallucinations. MCA bridges traditional coding manuals with modern AI through a 9-stage hybrid search engine, source-grounded RAG verification, non-diagnostic safety guardrails, and HL7 FHIR R4 interoperability.",
+      features: [
+        "9-Stage Hybrid ICD-10 Search Engine (Exact code, terms, PostgreSQL FTS, bilingual EN/ID synonyms, clinical abbreviations, and vector embeddings)",
+        "Source-Grounded AI Medical Coding Assistant (RAG) with anti-hallucination verification, official source citations, PII redaction, and symptom refusal guardrails",
+        "Collaborative Coding Workspace (Draft -> Pending Review -> Verified / Rejected) with candidate comparison, reviewer sign-off, and PDF/Excel verification exports",
+        "HL7 FHIR R4 Interoperability Mapping (CodeSystem lookup, Condition resource, and SatuSehat URI compliance)",
+        "Enterprise Fullstack Architecture: FastAPI + PostgreSQL 16 pgvector + Redis 7 + Next.js / Tailwind CSS with 4-role RBAC",
+      ],
+      techStack: [
+        "Vibe Coding",
+        "FastAPI & Python",
+        "Next.js & React",
+        "pgvector & RAG AI",
+        "HL7 FHIR R4",
+        "PostgreSQL 16",
+      ],
+      liveUrl: "https://github.com/Mavey15/medical-coding-assistant",
+      repoUrl: "https://github.com/Mavey15/medical-coding-assistant",
+    },
+    {
+      id: "drop-02",
+      dropNumber: "DROP // 002",
       title: "RSUD VOLDIGOAD // HIS & EHR",
       subtitle: "20-Module Portable Hospital Information System & Electronic Medical Record (11 Roles)",
       category: "Health-Tech & EHR",
@@ -165,8 +200,8 @@ const portfolioData = {
       repoUrl: "https://github.com/Mavey15/simrs-rsud-voldigoad",
     },
     {
-      id: "drop-02",
-      dropNumber: "DROP // 002",
+      id: "drop-03",
+      dropNumber: "DROP // 003",
       title: "E-SOP & E-SK // KLINIK ASY-SYIFA HUSADA",
       subtitle: "Desktop & Web Electronic SOP + Clinical Decree (SK) Management System",
       category: "System & Governance",
@@ -196,8 +231,8 @@ const portfolioData = {
       repoUrl: "https://github.com/Mavey15/esop-klinik-asysyifa",
     },
     {
-      id: "drop-03",
-      dropNumber: "DROP // 003",
+      id: "drop-04",
+      dropNumber: "DROP // 004",
       title: "HOSPITAL STATISTICS CALCULATOR",
       subtitle: "BOR, AvLOS, TOI, BTO, NDR, GDR & Interactive Barber-Johnson Graph (Web + APK)",
       category: "Health-Tech & EHR",
@@ -228,8 +263,8 @@ const portfolioData = {
       repoUrl: "https://github.com/Mavey15/kalkulator-statistik-rs",
     },
     {
-      id: "drop-04",
-      dropNumber: "DROP // 004",
+      id: "drop-05",
+      dropNumber: "DROP // 005",
       title: "MAVEYYVLGD // PERSONAL ARCHIVE",
       subtitle: "Streetwear Lookbook & Vibe Coding Personal Portfolio Website",
       category: "Creative Web",

@@ -27,14 +27,15 @@ Repositori ini merupakan **Website Pribadi & Digital Lookbook** milik **Muhammad
 
 ---
 
-## 🚀 Daftar Projek (Selected Drops)
+## 🚀 Selected Drops (Project Archive)
 
-| Kode | Nama Projek | Kategori | Deskripsi Singkat |
+| Drop | Project Name | Category | Overview |
 | :--- | :--- | :--- | :--- |
-| **DROP // 001** | **RSUD Voldigoad — SIMRS & RME** | `RMIK & Health-Tech` | Sistem Informasi Manajemen RS & Rekam Medis Elektronik 20 Modul dengan 11 Role pengguna (Paket Portabel Mandiri PHP 8.3 & Laravel). |
-| **DROP // 002** | **E-SOP Klinik Asy-Syifa Husada** | `Sistem & Governance` | Aplikasi web *full-stack* (React, Express, SQLite, Chart.js) untuk pengelolaan, revisi, dan pencetakan dokumen SOP internal klinik. |
-| **DROP // 003** | **Kalkulator Statistik RS** | `RMIK & Health-Tech` | Kalkulator 6 indikator RS (BOR, AvLOS, TOI, BTO, NDR, GDR), Grafik Barber-Johnson interaktif (Canvas), & aplikasi Android APK. |
-| **DROP // 004** | **MaveyyVlgd Personal Archive** | `Creative Web` | Website portofolio pribadi bergaya *Streetwear Lookbook* ini. |
+| **DROP // 001** | **MCA — Medical Coding Assistant** | `Health-Tech & AI` | AI-assisted ICD-10 reference, terminology lookup, source-grounded RAG verification, and collaborative coding workspace with HL7 FHIR R4 interoperability. |
+| **DROP // 002** | **RSUD Voldigoad — HIS & EHR** | `Health-Tech & EHR` | 20-Module Portable Hospital Information System (SIMRS) & Electronic Medical Record (RME) with 11 Clinical & Admin Roles (Laravel + PHP 8.3 Standalone). |
+| **DROP // 003** | **E-SOP & E-SK Klinik Asy-Syifa Husada** | `System & Governance` | Standalone Electron Desktop Application (`.exe`) & Full-Stack Web System for SOP + Director Decree (SK) Governance, Audit History, & Print Layouts. |
+| **DROP // 004** | **Hospital Statistics Calculator** | `Health-Tech & APK` | Automated BOR, AvLOS, TOI, BTO, NDR, GDR & Interactive Barber-Johnson Graph (Web + Android APK). |
+| **DROP // 005** | **MaveyyVlgd Personal Archive** | `Creative Web` | Streetwear Pop-Culture Digital Lookbook & Vibe Coding Portfolio Website. |
 
 ---
 
