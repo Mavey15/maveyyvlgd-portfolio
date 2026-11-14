@@ -27,8 +27,8 @@ const portfolioData = {
     editionTag: "MAVEYYVLGD // ARCHIVE 2026",
     serialCode: "MV-15-PCTN",
     // Kosongkan ("") untuk menggunakan ilustrasi avatar Streetwear SVG bawaan,
-    // atau isi dengan URL foto Anda / path file lokal (misal: "./foto-tama.jpg")
-    avatarUrl: "",
+    // atau isi dengan URL foto Anda / path file lokal (misal: "./avatar.jpg")
+    avatarUrl: "./avatar.jpg",
     cvUrl: "#contact",
     marqueeItems: [
       "MUHAMMAD ADHITYA PRATAMA // MAVEYYVLGD",

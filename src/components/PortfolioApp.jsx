@@ -627,13 +627,28 @@ export default function PortfolioApp({ data }) {
               </div>
 
               {/* Avatar Artwork or User Photo */}
-              <div className="aspect-[4/4.5] w-full overflow-hidden border-2 border-[#111111] bg-[#121215] relative">
+              <div className="aspect-[4/4.5] w-full overflow-hidden border-2 border-[#111111] bg-[#121215] relative group">
                 {profile.avatarUrl ? (
-                  <img
-                    src={profile.avatarUrl}
-                    alt={profile.fullName}
-                    className="w-full h-full object-cover"
-                  />
+                  <>
+                    <img
+                      src={profile.avatarUrl}
+                      alt={profile.fullName}
+                      className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    />
+                    {/* Streetwear Viewfinder Overlay */}
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/25" />
+                    <div className="pointer-events-none absolute top-3 left-3 px-2 py-0.5 bg-black/75 border border-[#D4FF00] font-mono text-[10px] text-[#D4FF00] font-bold tracking-widest uppercase">
+                      REC ● [{profile.name}]
+                    </div>
+                    <div className="pointer-events-none absolute bottom-3 left-3 right-3 flex items-end justify-between">
+                      <span className="px-2.5 py-1 bg-[#D4FF00] text-[#111111] border border-[#111111] font-mono text-xs font-black uppercase shadow-[3px_3px_0px_#FF4D00]">
+                        {profile.fullName}
+                      </span>
+                      <span className="px-2 py-0.5 bg-black/80 text-white font-mono text-[10px] border border-white/30">
+                        {profile.serialCode}
+                      </span>
+                    </div>
+                  </>
                 ) : (
                   <StreetwearAvatarSVG name={profile.name} />
                 )}
