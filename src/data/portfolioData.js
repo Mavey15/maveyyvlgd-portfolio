@@ -164,8 +164,8 @@ const portfolioData = {
         "ICD-10 & INA-CBG",
         "Zero-Install Standalone",
       ],
-      liveUrl: "",
-      repoUrl: "https://github.com/Mavey15",
+      liveUrl: "https://github.com/Mavey15/simrs",
+      repoUrl: "https://github.com/Mavey15/simrs",
     },
     {
       id: "drop-02",
@@ -195,8 +195,8 @@ const portfolioData = {
         "Node.js & Express API",
         "SQLite Database",
       ],
-      liveUrl: "",
-      repoUrl: "https://github.com/Mavey15",
+      liveUrl: "https://github.com/Mavey15/klinikasysyifa",
+      repoUrl: "https://github.com/Mavey15/klinikasysyifa",
     },
     {
       id: "drop-03",
@@ -228,7 +228,7 @@ const portfolioData = {
         "Statistik RS RMIK",
       ],
       liveUrl: "./kalkulatorstatistik/index.html",
-      repoUrl: "https://github.com/Mavey15",
+      repoUrl: "https://github.com/Mavey15/kalkulator-statistik-rs",
     },
     {
       id: "drop-04",
@@ -257,8 +257,8 @@ const portfolioData = {
         "Tailwind CSS",
         "Streetwear Pop-Culture UI",
       ],
-      liveUrl: "#hero",
-      repoUrl: "https://github.com/Mavey15",
+      liveUrl: "https://mavey15.github.io/maveyyvlgd-portfolio/",
+      repoUrl: "https://github.com/Mavey15/maveyyvlgd-portfolio",
     },
   ],
 
