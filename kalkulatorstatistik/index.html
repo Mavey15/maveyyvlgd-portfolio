@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f766e" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <title>Kalkulator Statistik RS</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="mobile-shell">
+
+    <!-- Sticky Android Top App Bar -->
+    <header class="top-app-bar">
+      <div class="app-bar-left">
+        <div class="app-logo">📊</div>
+        <div class="app-titles">
+          <h1>Statistik RS</h1>
+          <p id="headerSubtitle">Hitung BOR, LOS, TOI, BTO, NDR, GDR</p>
+        </div>
+      </div>
+      <div class="app-bar-actions" id="topBarActions">
+        <button type="button" class="icon-chip-btn" onclick="loadSampleBasic()" title="Isi Contoh Soal">
+          Contoh
+        </button>
+        <button type="button" class="icon-chip-btn btn-outline-light" onclick="resetBasic()" title="Reset Angka">
+          Reset
+        </button>
+      </div>
+    </header>
+
+    <!-- Scrollable App Content -->
+    <main class="app-content">
+
+      <!-- ========================================== -->
+      <!-- TAB 1: HITUNG 6 INDIKATOR                  -->
+      <!-- ========================================== -->
+      <section id="tab-all" class="tab-panel active">
+
+        <!-- Input Card -->
+        <div class="m-card">
+          <div class="m-card-head">
+            <span class="m-card-icon">📝</span>
+            <div>
+              <h2>Data Rekam Medis</h2>
+              <p>Ketik angka, hasil otomatis terhitung di bawah</p>
+            </div>
+          </div>
+
+          <div class="grid-2-mobile">
+            <div class="field-group">
+              <label for="inA">Tempat Tidur (<b>A</b>)</label>
+              <div class="input-box">
+                <input type="number" inputmode="decimal" id="inA" value="100" min="1" step="any" oninput="calculateAll()" />
+                <span class="unit-tag">TT</span>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label for="inT">Periode (<b>t</b>)</label>
+              <div class="input-box">
+                <input type="number" inputmode="decimal" id="inT" value="365" min="1" step="any" oninput="calculateAll()" />
+                <span class="unit-tag">hr</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Period Chips -->
+          <div class="chip-scroll">
+            <span class="chip-label">Pilih Cepat t:</span>
+            <button type="button" class="q-chip" onclick="setPeriod('inT', 30, calculateAll)">30 hr</button>
+            <button type="button" class="q-chip" onclick="setPeriod('inT', 31, calculateAll)">31 hr</button>
+            <button type="button" class="q-chip" onclick="setPeriod('inT', 90, calculateAll)">90 hr (TW)</button>
+            <button type="button" class="q-chip active-chip" onclick="setPeriod('inT', 365, calculateAll)">365 hr (1 Thn)</button>
+            <button type="button" class="q-chip" onclick="setPeriod('inT', 366, calculateAll)">366 hr</button>
+          </div>
+
+          <div class="grid-2-mobile" style="margin-top: 12px;">
+            <div class="field-group">
+              <label for="inHP">Hari Perawatan (<b>HP</b>)</label>
+              <div class="input-box">
+                <input type="number" inputmode="decimal" id="inHP" value="27375" min="0" step="any" oninput="onHPChange()" />
+                <span class="unit-tag">hr</span>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label for="inLD">Lama Dirawat (<b>LD</b>)</label>
+              <div class="input-box">
+                <input type="number" inputmode="decimal" id="inLD" value="27375" min="0" step="any" oninput="onLDChange()" />
+                <span class="unit-tag">hr</span>
+              </div>
+            </div>
+          </div>
+
+          <label class="switch-row">
+            <input type="checkbox" id="syncHPLD" checked onchange="onSyncToggle()" />
+            <span>Samakan otomatis nilai <b>LD = HP</b></span>
+          </label>
+
+          <div class="sub-divider">Data Pasien Keluar (Hidup &amp; Mati)</div>
+
+          <div class="segmented-control">
+            <button type="button" id="segTotal" class="seg-btn active" onclick="setPatientMode('total')">Input Total (D)</button>
+            <button type="button" id="segRinci" class="seg-btn" onclick="setPatientMode('rinci')">Input Hidup &amp; Mati</button>
+          </div>
+          <input type="hidden" id="modePasien" value="total" />
+
+          <div id="boxTotalD" class="field-group">
+            <label for="inD">Total Pasien Keluar Hidup + Mati (<b>D</b>)</label>
+            <div class="input-box">
+              <input type="number" inputmode="decimal" id="inD" value="5475" min="1" step="any" oninput="calculateAll()" />
+              <span class="unit-tag">pasien</span>
+            </div>
+          </div>
+
+          <div id="boxHidup" class="field-group" style="display: none;">
+            <label for="inHidup">Pasien Keluar Hidup</label>
+            <div class="input-box">
+              <input type="number" inputmode="decimal" id="inHidup" value="5325" min="0" step="any" oninput="calculateAll()" />
+              <span class="unit-tag">pasien</span>
+            </div>
+          </div>
+
+          <div class="grid-2-mobile">
+            <div class="field-group">
+              <label for="inMatiKurang">Mati &lt; 48 Jam</label>
+              <div class="input-box">
+                <input type="number" inputmode="decimal" id="inMatiKurang" value="60" min="0" step="any" oninput="calculateAll()" />
+                <span class="unit-tag">org</span>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label for="inMatiLebih">Mati ≥ 48 Jam</label>
+              <div class="input-box">
+                <input type="number" inputmode="decimal" id="inMatiLebih" value="90" min="0" step="any" oninput="calculateAll()" />
+                <span class="unit-tag">org</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Output KPI Grid -->
+        <div class="m-card">
+          <div class="m-card-head">
+            <span class="m-card-icon">📌</span>
+            <div>
+              <h2>Hasil 6 Indikator RS</h2>
+              <p>Evaluasi standar ideal Depkes RI &amp; Barber-Johnson</p>
+            </div>
+          </div>
+
+          <div class="kpi-grid-mobile">
+            <div class="kpi-tile">
+              <div class="kpi-tile-top">
+                <span class="kpi-code">BOR</span>
+                <span id="badgeBOR" class="m-badge badge-ideal">Ideal</span>
+              </div>
+              <div id="valBOR" class="kpi-num">75,00%</div>
+              <div class="kpi-norm">Ideal: 60% – 85%</div>
+            </div>
+
+            <div class="kpi-tile">
+              <div class="kpi-tile-top">
+                <span class="kpi-code">AvLOS</span>
+                <span id="badgeLOS" class="m-badge badge-ideal">Ideal</span>
+              </div>
+              <div id="valLOS" class="kpi-num">5,00 hr</div>
+              <div class="kpi-norm">Depkes: 6–9 (BJ: 3–12)</div>
+            </div>
+
+            <div class="kpi-tile">
+              <div class="kpi-tile-top">
+                <span class="kpi-code">TOI</span>
+                <span id="badgeTOI" class="m-badge badge-ideal">Ideal</span>
+              </div>
+              <div id="valTOI" class="kpi-num">1,67 hr</div>
+              <div class="kpi-norm">Ideal: 1 – 3 hari</div>
+            </div>
+
+            <div class="kpi-tile">
+              <div class="kpi-tile-top">
+                <span class="kpi-code">BTO</span>
+                <span id="badgeBTO" class="m-badge badge-ideal">Ideal</span>
+              </div>
+              <div id="valBTO" class="kpi-num">54,75 kl</div>
+              <div class="kpi-norm">Ideal: 40–50 kl/thn</div>
+            </div>
+
+            <div class="kpi-tile">
+              <div class="kpi-tile-top">
+                <span class="kpi-code">NDR</span>
+                <span id="badgeNDR" class="m-badge badge-ideal">Ideal</span>
+              </div>
+              <div id="valNDR" class="kpi-num">16,44 ‰</div>
+              <div class="kpi-norm">Ideal: &lt; 25 ‰</div>
+            </div>
+
+            <div class="kpi-tile">
+              <div class="kpi-tile-top">
+                <span class="kpi-code">GDR</span>
+                <span id="badgeGDR" class="m-badge badge-ideal">Ideal</span>
+              </div>
+              <div id="valGDR" class="kpi-num">27,40 ‰</div>
+              <div class="kpi-norm">Ideal: &lt; 45 ‰</div>
+            </div>
+          </div>
+
+          <!-- Langkah Penyelesaian -->
+          <div class="sub-divider">Cara Penyelesaian Rumus</div>
+          <div id="stepsAll" class="steps-list"></div>
+        </div>
+
+        <!-- Barber-Johnson Graph Card -->
+        <div class="m-card">
+          <div class="m-card-head" style="justify-content: space-between;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span class="m-card-icon">📈</span>
+              <div>
+                <h2>Grafik Barber-Johnson</h2>
+                <p>Posisi titik (TOI, AvLOS)</p>
+              </div>
+            </div>
+            <span id="bjStatusBadge" class="m-badge badge-ideal">Efisien</span>
+          </div>
+
+          <div class="bj-container">
+            <canvas id="bjCanvas" width="460" height="340"></canvas>
+            <div class="bj-legend-mobile">
+              <span><i class="dot-green"></i> Daerah Efisiensi (BOR ≥75%, TOI 1–3, LOS 3–12)</span>
+              <span><i class="dot-red"></i> Titik Posisi RS Saat Ini</span>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ========================================== -->
+      <!-- TAB 2: CARI KOMPONEN DASAR (BOLAK-BALIK)   -->
+      <!-- ========================================== -->
+      <section id="tab-component" class="tab-panel">
+
+        <div class="m-card">
+          <div class="m-card-head">
+            <span class="m-card-icon">🔍</span>
+            <div>
+              <h2>Cari Komponen Dasar</h2>
+              <p>Rumus bolak-balik jika nilai indikator sudah diketahui</p>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="compCategory">1. Pilih Indikator yang Diketahui:</label>
+            <div class="pill-selector" id="compCatPills">
+              <button type="button" class="cat-pill active" onclick="selectCompCat('bor')">BOR</button>
+              <button type="button" class="cat-pill" onclick="selectCompCat('los')">AvLOS</button>
+              <button type="button" class="cat-pill" onclick="selectCompCat('toi')">TOI</button>
+              <button type="button" class="cat-pill" onclick="selectCompCat('bto')">BTO</button>
+              <button type="button" class="cat-pill" onclick="selectCompCat('death')">NDR / GDR</button>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="compSelector">2. Pilih Komponen yang Ingin Dicari:</label>
+            <select id="compSelector" onchange="renderComponentInputs()"></select>
+          </div>
+
+          <div class="sub-divider">3. Masukkan Data yang Diketahui</div>
+          <div id="compInputsContainer"></div>
+        </div>
+
+        <div class="m-card">
+          <div class="m-card-head">
+            <span class="m-card-icon">✨</span>
+            <div>
+              <h2>Hasil &amp; Langkah Hitung</h2>
+              <p>Rumus turunan &amp; substitusi angka</p>
+            </div>
+          </div>
+          <div id="compResultContainer"></div>
+        </div>
+
+      </section>
+
+      <!-- ========================================== -->
+      <!-- TAB 3: HUBUNGAN ANTAR-INDIKATOR (PINTAS)   -->
+      <!-- ========================================== -->
+      <section id="tab-cross" class="tab-panel">
+
+        <div class="m-card">
+          <div class="m-card-head">
+            <span class="m-card-icon">🔄</span>
+            <div>
+              <h2>Kalkulator Antar-Indikator</h2>
+              <p>Cari indikator yang belum diketahui hanya dari 2 indikator lain</p>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="crossPair">Pilih 2 Indikator yang Diketahui di Soal:</label>
+            <select id="crossPair" onchange="renderCrossInputs()">
+              <option value="bor_toi">Diketahui BOR &amp; TOI ➔ Cari AvLOS &amp; BTO</option>
+              <option value="bor_los">Diketahui BOR &amp; AvLOS ➔ Cari TOI &amp; BTO</option>
+              <option value="bor_bto">Diketahui BOR &amp; BTO ➔ Cari AvLOS &amp; TOI</option>
+              <option value="los_toi">Diketahui AvLOS &amp; TOI ➔ Cari BOR &amp; BTO</option>
+              <option value="bto_los">Diketahui BTO &amp; AvLOS ➔ Cari BOR &amp; TOI</option>
+              <option value="bto_toi">Diketahui BTO &amp; TOI ➔ Cari BOR &amp; AvLOS</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label for="crossT">Periode Hari (<b>t</b>)</label>
+            <div class="input-box">
+              <input type="number" inputmode="decimal" id="crossT" value="365" min="1" step="any" oninput="calculateCross()" />
+              <span class="unit-tag">hari</span>
+            </div>
+            <div class="chip-scroll" style="margin-top: 6px;">
+              <button type="button" class="q-chip" onclick="setPeriod('crossT', 30, calculateCross)">30 hr</button>
+              <button type="button" class="q-chip" onclick="setPeriod('crossT', 31, calculateCross)">31 hr</button>
+              <button type="button" class="q-chip" onclick="setPeriod('crossT', 90, calculateCross)">90 hr</button>
+              <button type="button" class="q-chip" onclick="setPeriod('crossT', 365, calculateCross)">365 hr</button>
+              <button type="button" class="q-chip" onclick="setPeriod('crossT', 366, calculateCross)">366 hr</button>
+            </div>
+          </div>
+
+          <div id="crossDynamicInputs" class="grid-2-mobile"></div>
+
+          <div class="sub-divider">Opsional: Cari A, HP, dan D Sekaligus</div>
+          <div class="field-group">
+            <label for="crossExtraType">Jika Diketahui 1 Data Dasar Tambahan:</label>
+            <select id="crossExtraType" onchange="calculateCross()">
+              <option value="none">— Tidak ada (Hanya cari indikator) —</option>
+              <option value="A">Diketahui Jumlah Tempat Tidur (A)</option>
+              <option value="D">Diketahui Jumlah Pasien Keluar (D)</option>
+              <option value="HP">Diketahui Hari Perawatan (HP / LD)</option>
+            </select>
+          </div>
+
+          <div class="field-group" id="crossExtraValGroup" style="display: none;">
+            <label for="crossExtraVal" id="crossExtraLabel">Nilai Data Tambahan</label>
+            <div class="input-box">
+              <input type="number" inputmode="decimal" id="crossExtraVal" value="100" min="1" step="any" oninput="calculateCross()" />
+              <span class="unit-tag">nilai</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="m-card">
+          <div class="m-card-head">
+            <span class="m-card-icon">📐</span>
+            <div>
+              <h2>Hasil Keempat Indikator</h2>
+              <p>Lengkap dengan cara penyelesaian rumus pintas</p>
+            </div>
+          </div>
+          <div id="crossResultContainer"></div>
+        </div>
+
+      </section>
+
+      <!-- ========================================== -->
+      <!-- TAB 4: KUMPULAN RUMUS (MOBILE CARDS)       -->
+      <!-- ========================================== -->
+      <section id="tab-reference" class="tab-panel">
+
+        <div class="m-card">
+          <div class="m-card-head">
+            <span class="m-card-icon">📖</span>
+            <div>
+              <h2>Keterangan Simbol</h2>
+              <p>Singkatan variabel dalam statistik RS</p>
+            </div>
+          </div>
+          <div class="legend-list">
+            <div><b>A</b> : Jumlah Tempat Tidur tersedia</div>
+            <div><b>t</b> : Jumlah hari dalam periode (30 / 365 hr)</div>
+            <div><b>HP</b> : Jumlah Hari Perawatan</div>
+            <div><b>LD</b> : Jumlah Lama Dirawat</div>
+            <div><b>D</b> : Pasien Keluar (Hidup + Mati)</div>
+          </div>
+        </div>
+
+        <!-- Mobile-Friendly Formula Cards -->
+        <div class="ref-card">
+          <div class="ref-head">
+            <h3>1. BOR (Bed Occupancy Rate)</h3>
+            <span class="m-badge badge-ideal">Ideal: 60% – 85%</span>
+          </div>
+          <div class="ref-main-formula">BOR = [ HP / (A × t) ] × 100%</div>
+          <div class="ref-sub-list">
+            <div><span>Cari HP:</span> <code>HP = (BOR × A × t) / 100</code></div>
+            <div><span>Cari A:</span> <code>A = (HP × 100) / (BOR × t)</code></div>
+            <div><span>Cari t:</span> <code>t = (HP × 100) / (BOR × A)</code></div>
+          </div>
+        </div>
+
+        <div class="ref-card">
+          <div class="ref-head">
+            <h3>2. AvLOS (Average Length of Stay)</h3>
+            <span class="m-badge badge-ideal">Ideal: 6 – 9 hari</span>
+          </div>
+          <div class="ref-main-formula">AvLOS = LD / D</div>
+          <div class="ref-sub-list">
+            <div><span>Cari LD:</span> <code>LD = AvLOS × D</code></div>
+            <div><span>Cari D:</span> <code>D = LD / AvLOS</code></div>
+          </div>
+        </div>
+
+        <div class="ref-card">
+          <div class="ref-head">
+            <h3>3. TOI (Turn Over Interval)</h3>
+            <span class="m-badge badge-ideal">Ideal: 1 – 3 hari</span>
+          </div>
+          <div class="ref-main-formula">TOI = [ (A × t) − HP ] / D</div>
+          <div class="ref-sub-list">
+            <div><span>Cari A:</span> <code>A = [ (TOI × D) + HP ] / t</code></div>
+            <div><span>Cari HP:</span> <code>HP = (A × t) − (TOI × D)</code></div>
+            <div><span>Cari D:</span> <code>D = [ (A × t) − HP ] / TOI</code></div>
+            <div><span>Cari t:</span> <code>t = [ (TOI × D) + HP ] / A</code></div>
+          </div>
+        </div>
+
+        <div class="ref-card">
+          <div class="ref-head">
+            <h3>4. BTO (Bed Turn Over)</h3>
+            <span class="m-badge badge-ideal">Ideal: 40 – 50 kali/thn</span>
+          </div>
+          <div class="ref-main-formula">BTO = D / A</div>
+          <div class="ref-sub-list">
+            <div><span>Cari D:</span> <code>D = BTO × A</code></div>
+            <div><span>Cari A:</span> <code>A = D / BTO</code></div>
+          </div>
+        </div>
+
+        <div class="ref-card">
+          <div class="ref-head">
+            <h3>5. NDR &amp; 6. GDR (Angka Kematian)</h3>
+            <span class="m-badge badge-ideal">NDR &lt;25‰ | GDR &lt;45‰</span>
+          </div>
+          <div class="ref-main-formula">NDR = (Mati ≥ 48 jam / D) × 1.000‰<br>GDR = (Total Mati / D) × 1.000‰</div>
+          <div class="ref-sub-list">
+            <div><span>Cari Mati ≥48j:</span> <code>M≥48 = (NDR × D) / 1.000</code></div>
+            <div><span>Cari Total Mati:</span> <code>M_tot = (GDR × D) / 1.000</code></div>
+            <div><span>Cari Mati &lt;48j:</span> <code>M&lt;48 = M_tot − M≥48</code></div>
+            <div><span>Cari D (NDR):</span> <code>D = (M≥48 × 1.000) / NDR</code></div>
+          </div>
+        </div>
+
+        <div class="ref-card">
+          <div class="ref-head">
+            <h3>⚡ Rumus Pintas Antar-Indikator</h3>
+            <span class="m-badge badge-warn">Tanpa Data A, HP, D</span>
+          </div>
+          <div class="ref-sub-list">
+            <div><span>BTO dari LOS &amp; TOI:</span> <code>BTO = t / (AvLOS + TOI)</code></div>
+            <div><span>BOR dari LOS &amp; TOI:</span> <code>BOR = [AvLOS / (AvLOS + TOI)] × 100</code></div>
+            <div><span>BOR dari BTO &amp; LOS:</span> <code>BOR = [(BTO × AvLOS) / t] × 100</code></div>
+            <div><span>LOS dari BOR &amp; TOI:</span> <code>AvLOS = (BOR × TOI) / (100 − BOR)</code></div>
+            <div><span>TOI dari BOR &amp; LOS:</span> <code>TOI = [AvLOS × (100 − BOR)] / BOR</code></div>
+            <div><span>LOS dari BOR &amp; BTO:</span> <code>AvLOS = (BOR × t) / (BTO × 100)</code></div>
+            <div><span>TOI dari BOR &amp; BTO:</span> <code>TOI = [(100 − BOR) × t] / (BTO × 100)</code></div>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- Fixed Bottom Navigation Bar (Android Style) -->
+    <nav class="bottom-nav" role="tablist">
+      <button type="button" class="bnav-item active" data-tab="tab-all" onclick="switchTab('tab-all')">
+        <span class="bnav-icon">🧮</span>
+        <span class="bnav-label">6 Indikator</span>
+      </button>
+      <button type="button" class="bnav-item" data-tab="tab-component" onclick="switchTab('tab-component')">
+        <span class="bnav-icon">🔍</span>
+        <span class="bnav-label">Cari Komponen</span>
+      </button>
+      <button type="button" class="bnav-item" data-tab="tab-cross" onclick="switchTab('tab-cross')">
+        <span class="bnav-icon">🔄</span>
+        <span class="bnav-label">Antar-Indikator</span>
+      </button>
+      <button type="button" class="bnav-item" data-tab="tab-reference" onclick="switchTab('tab-reference')">
+        <span class="bnav-icon">📖</span>
+        <span class="bnav-label">Rumus</span>
+      </button>
+    </nav>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
