@@ -161,8 +161,8 @@ const portfolioData = {
         "ICD-10 & INA-CBG",
         "Zero-Install Standalone",
       ],
-      liveUrl: "https://github.com/Mavey15/simrs",
-      repoUrl: "https://github.com/Mavey15/simrs",
+      liveUrl: "https://github.com/Mavey15/simrs-rsud-voldigoad",
+      repoUrl: "https://github.com/Mavey15/simrs-rsud-voldigoad",
     },
     {
       id: "drop-02",
@@ -192,8 +192,8 @@ const portfolioData = {
         "Node.js & Express",
         "SQLite Database",
       ],
-      liveUrl: "https://github.com/Mavey15/klinikasysyifa",
-      repoUrl: "https://github.com/Mavey15/klinikasysyifa",
+      liveUrl: "https://github.com/Mavey15/esop-klinik-asysyifa",
+      repoUrl: "https://github.com/Mavey15/esop-klinik-asysyifa",
     },
     {
       id: "drop-03",
