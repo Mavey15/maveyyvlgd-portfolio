@@ -336,27 +336,27 @@ export default function PortfolioApp({ data }) {
   };
 
   const handleSendQuickMessage = (via) => {
-    const nameText = senderName.trim() || "Teman Baru";
+    const nameText = senderName.trim() || "New Friend";
     const bodyText =
       senderMsg.trim() ||
-      "Halo Tama (MaveyyVlgd)! Salam kenal, keren banget projek-projeknya.";
+      "Hey Tama (MaveyyVlgd)! Love your projects and would love to connect.";
 
     if (via === "whatsapp" && contact.whatsappNumber) {
       const text = encodeURIComponent(
-        `Halo ${profile.name}! Saya *${nameText}*.\n\n${bodyText}`
+        `Hi ${profile.name}! I'm *${nameText}*.\n\n${bodyText}`
       );
       window.open(`https://wa.me/${contact.whatsappNumber}?text=${text}`, "_blank");
-      setMsgSentNotice("Membuka WhatsApp...");
+      setMsgSentNotice("Opening WhatsApp...");
     } else if (via === "instagram") {
       window.open("https://www.instagram.com/a.prtamaa1/", "_blank");
-      setMsgSentNotice("Membuka Instagram @a.prtamaa1...");
+      setMsgSentNotice("Opening Instagram @a.prtamaa1...");
     } else {
       const subject = encodeURIComponent(
-        `[MAVEYYVLGD WEB] Pesan dari ${nameText}`
+        `[MAVEYYVLGD WEB] Message from ${nameText}`
       );
-      const body = encodeURIComponent(`Halo ${profile.fullName} (${profile.name}),\n\n${bodyText}\n\nSalam,\n${nameText}`);
+      const body = encodeURIComponent(`Hi ${profile.fullName} (${profile.name}),\n\n${bodyText}\n\nBest,\n${nameText}`);
       window.location.href = `mailto:${contact.email}?subject=${subject}&body=${body}`;
-      setMsgSentNotice("Membuka aplikasi Email...");
+      setMsgSentNotice("Opening Email client...");
     }
     setTimeout(() => setMsgSentNotice(""), 3500);
   };
@@ -447,7 +447,7 @@ export default function PortfolioApp({ data }) {
                   ? "bg-[#16161B] text-[#F3EFE6] border-[#F3EFE6] hover:bg-[#D4FF00] hover:text-[#111111] hover:border-[#D4FF00]"
                   : "bg-[#111111] text-[#F3EFE6] border-[#111111] hover:bg-[#FF4D00] hover:border-[#111111]"
               }`}
-              title="Ganti nuansa tema (Asphalt Dark / Paper Zine)"
+              title="Switch theme mode (Asphalt Dark / Zine Paper)"
             >
               <span
                 className={`w-2.5 h-2.5 rounded-full ${
@@ -482,10 +482,10 @@ export default function PortfolioApp({ data }) {
           >
             {[
               { href: "#hero", label: "01 // HOME" },
-              { href: "#about", label: "02 // TENTANG SAYA" },
-              { href: "#skills", label: "03 // KEAHLIAN (SPECS)" },
-              { href: "#projects", label: "04 // DAFTAR PROJEK (DROPS)" },
-              { href: "#contact", label: "05 // KONTAK & SOSMED" },
+              { href: "#about", label: "02 // ABOUT ME" },
+              { href: "#skills", label: "03 // ARSENAL (SPECS)" },
+              { href: "#projects", label: "04 // SELECTED DROPS" },
+              { href: "#contact", label: "05 // CONTACT & SOCIALS" },
             ].map((nav) => (
               <a
                 key={nav.href}
@@ -949,7 +949,7 @@ export default function PortfolioApp({ data }) {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Cari projek / tech..."
+                placeholder="Search drops / tech..."
                 className={`font-mono text-xs px-3.5 py-2 border-2 focus:outline-none ${
                   isDark
                     ? "bg-[#16161C] border-[#2E2E38] text-[#F3EFE6] focus:border-[#D4FF00]"
@@ -962,7 +962,7 @@ export default function PortfolioApp({ data }) {
           {/* Project Lookbook Grid */}
           {filteredProjects.length === 0 ? (
             <div className="p-12 border-2 border-dashed border-current text-center font-mono">
-              Tidak ada projek yang cocok dengan filter "{searchQuery}".
+              No project drops found matching "{searchQuery}".
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -1208,13 +1208,13 @@ export default function PortfolioApp({ data }) {
                 <div className="space-y-4">
                   <div>
                     <label className="block font-mono text-xs font-bold uppercase mb-1.5">
-                      01 // NAMA ATAU BRAND ANDA
+                      01 // YOUR NAME OR BRAND
                     </label>
                     <input
                       type="text"
                       value={senderName}
                       onChange={(e) => setSenderName(e.target.value)}
-                      placeholder="Misal: Alex / Studio Kreatif"
+                      placeholder="e.g., Alex / Creative Studio"
                       className={`w-full px-3.5 py-2.5 border-2 font-mono text-sm focus:outline-none ${
                         isDark
                           ? "bg-[#0B0B0C] border-[#2E2E38] text-[#F3EFE6] focus:border-[#D4FF00]"
@@ -1225,13 +1225,13 @@ export default function PortfolioApp({ data }) {
 
                   <div>
                     <label className="block font-mono text-xs font-bold uppercase mb-1.5">
-                      02 // DETAIL PROJEK ATAU PESAN
+                      02 // PROJECT DETAILS OR MESSAGE
                     </label>
                     <textarea
                       rows={4}
                       value={senderMsg}
                       onChange={(e) => setSenderMsg(e.target.value)}
-                      placeholder="Ceritakan ide website, kolaborasi, atau pesan Anda..."
+                      placeholder="Tell me about your project idea, collaboration, or just say hi..."
                       className={`w-full px-3.5 py-2.5 border-2 font-mono text-sm focus:outline-none ${
                         isDark
                           ? "bg-[#0B0B0C] border-[#2E2E38] text-[#F3EFE6] focus:border-[#D4FF00]"
@@ -1252,7 +1252,7 @@ export default function PortfolioApp({ data }) {
                       onClick={() => handleSendQuickMessage("email")}
                       className="w-full py-3.5 px-4 bg-[#D4FF00] text-[#111111] border-2 border-[#111111] font-mono text-xs font-black uppercase hover:bg-[#FF4D00] hover:text-white transition-colors"
                     >
-                      KIRIM VIA EMAIL ✉
+                      SEND VIA EMAIL ✉
                     </button>
                     <button
                       type="button"
