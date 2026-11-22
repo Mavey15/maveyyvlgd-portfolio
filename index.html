@@ -597,7 +597,9 @@
                     <span className="inline-block bg-[#D4FF00] text-[#111111] px-3 py-1 my-1.5 border-2 border-[#111111] shadow-[5px_5px_0px_#FF4D00] transform -rotate-1">
                       {profile.headlineAccent}
                     </span>
-                    <span className="block">{profile.headlineBottom}</span>
+                    {profile.headlineBottom && (
+                      <span className="block">{profile.headlineBottom}</span>
+                    )}
                   </h1>
 
                   <p className="text-base sm:text-lg max-w-2xl leading-relaxed font-medium">

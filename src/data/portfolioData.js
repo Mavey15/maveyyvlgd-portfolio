@@ -6,7 +6,7 @@ const portfolioData = {
     role: "RMIK Enthusiast / Vibe Coder / Digital Builder",
     headlineTop: "NOT AN IT KID,",
     headlineAccent: "JUST MECUT AI",
-    headlineBottom: "& COOL IDEAS.",
+    headlineBottom: "",
     shortBio:
       "Hi, I'm Muhammad Adhitya Pratama (known as MaveyyVlgd / MvyVlgd across my builds). Rooted in Health Information Management & Medical Records (RMIK) in Pacitan. Not a traditional CS/IT programmer, just someone who turns real-world ideas into working digital products through Vibe Coding.",
     location: "PACITAN, IDN",
