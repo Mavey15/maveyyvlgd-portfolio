@@ -1,0 +1,144 @@
+/* 
+ * StreamFlix - Netflix-style Styling & Animations
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  --netflix-red: #E50914;
+  --netflix-red-hover: #b80710;
+  --netflix-black: #141414;
+  --netflix-dark: #181818;
+  --netflix-card: #2f2f2f;
+  --netflix-gray: #808080;
+  --netflix-light-gray: #e5e5e5;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--netflix-black);
+  color: #ffffff;
+  overflow-x: hidden;
+  user-select: none;
+}
+
+.font-bebas {
+  font-family: 'Bebas Neue', cursive, sans-serif;
+  letter-spacing: 1px;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #141414;
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Hide scrollbar for clean carousels */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Row Scroll Buttons */
+.row-scroll-btn {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50px;
+  background-color: rgba(20, 20, 20, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.25s ease;
+  z-index: 25;
+  cursor: pointer;
+}
+.row-container:hover .row-scroll-btn {
+  opacity: 1;
+}
+.row-scroll-btn:hover {
+  background-color: rgba(20, 20, 20, 0.95);
+  transform: scale(1.05);
+}
+
+/* Custom Range Slider for Scrubber */
+.netflix-slider {
+  -webkit-appearance: none;
+  background: transparent;
+}
+.netflix-slider:focus {
+  outline: none;
+}
+.netflix-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 14px;
+  width: 14px;
+  border-radius: 50%;
+  background: var(--netflix-red);
+  cursor: pointer;
+  margin-top: -5px;
+  box-shadow: 0 0 10px rgba(229, 9, 20, 0.8);
+  transition: transform 0.1s ease;
+}
+.netflix-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.3);
+}
+
+/* Netflix Spinner Animation */
+.netflix-spinner {
+  border: 4px solid rgba(255, 255, 255, 0.15);
+  border-top-color: var(--netflix-red);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: netflix-spin 0.8s linear infinite;
+}
+
+@keyframes netflix-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Modal Fade Animation */
+.modal-animate-in {
+  animation: modalScaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes modalScaleUp {
+  0% {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Video Player Glow on Progress Bar */
+#player-played-bar {
+  box-shadow: 0 0 12px rgba(229, 9, 20, 0.7);
+}
+
+/* Custom Card Hover Polish */
+.movie-card {
+  transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.35s ease;
+}
+.movie-card:hover {
+  transform: translateY(-6px) scale(1.04);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.85);
+}

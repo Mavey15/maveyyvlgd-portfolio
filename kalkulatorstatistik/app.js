@@ -79,6 +79,13 @@ function setPeriod(inputId, days, callback) {
   const el = document.getElementById(inputId);
   if (el) {
     el.value = days;
+    document.querySelectorAll('.q-chip').forEach((chip) => {
+      const handler = chip.getAttribute('onclick') || '';
+      if (handler.includes(`'${inputId}'`)) {
+        const match = handler.match(/setPeriod\([^,]+,\s*(\d+)/);
+        chip.classList.toggle('active-chip', !!match && Number(match[1]) === Number(days));
+      }
+    });
     if (typeof callback === 'function') callback();
   }
 }

@@ -22,7 +22,7 @@ Repositori ini merupakan **Website Pribadi & Digital Lookbook** milik **Muhammad
 - 🌗 **Dual Streetwear Mode**: Beralih secara instan antara **Mode Asphalt (Dark Carbon)** dan **Mode Zine Paper (Light Archive)**.
 - 🏷️ **Lookbook Hangtag Hero**: Dilengkapi ilustrasi karakter kustom, kode seri, barcode, koordinat Pacitan, dan penunjuk waktu WIB *real-time*.
 - 🗂️ **Selected Drops Archive**: Katalog projek interaktif dengan filter kategori, pencarian cepat, dan *pop-up modal* spesifikasi lengkap.
-- 🧮 **Built-in Live Demo**: Terintegrasi langsung dengan aplikasi **Kalkulator Statistik Rumah Sakit** di dalam folder [`/kalkulatorstatistik`](./kalkulatorstatistik).
+- 🧮 **Built-in Live Demos**: Terintegrasi langsung dengan **Kalkulator Statistik Rumah Sakit** ([`/kalkulatorstatistik`](./kalkulatorstatistik)) dan **StreamFlix Local Streaming Studio** ([`/netflix-app`](./netflix-app)).
 - ⚙️ **Single Config Architecture**: Seluruh data profil, skill, projek, dan kontak terpusat di satu file [`src/data/portfolioData.js`](./src/data/portfolioData.js).
 
 ---
@@ -36,19 +36,14 @@ Repositori ini merupakan **Website Pribadi & Digital Lookbook** milik **Muhammad
 | **DROP // 003** | **E-SOP & E-SK Klinik Asy-Syifa Husada** | `System & Governance` | Standalone Electron Desktop Application (`.exe`) & Full-Stack Web System for SOP + Director Decree (SK) Governance, Audit History, & Print Layouts. |
 | **DROP // 004** | **Hospital Statistics Calculator** | `Health-Tech & APK` | Automated BOR, AvLOS, TOI, BTO, NDR, GDR & Interactive Barber-Johnson Graph (Web + Android APK). |
 | **DROP // 005** | **MaveyyVlgd Personal Archive** | `Creative Web` | Streetwear Pop-Culture Digital Lookbook & Vibe Coding Portfolio Website. |
+| **DROP // 006** | **StreamFlix Local Streaming Studio** | `Creative Web` | Standalone cinema web player, IndexedDB drag-and-drop video upload studio, auto canvas thumbnails, and local HTTP Range streaming. |
 
 ---
 
 ## 🛠️ Cara Menjalankan
 
-### 1. Buka Langsung di Browser (Tanpa Install Node.js)
-Cukup buka file [`index.html`](./index.html) di browser favorit Anda.
-
-### 2. Menjalankan dengan Next.js Development Server
-```bash
-npm install
-npm run dev
-```
+### 1. Buka Langsung di Browser (Tanpa Build / Install)
+Cukup buka file [`index.html`](./index.html) di browser favorit Anda, atau jalankan server static lokal (mis. `npx serve .` / Live Server) untuk preview di localhost.
 
 ---
 

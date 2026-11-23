@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="StreamFlix: platform streaming video mandiri dengan pemutar kustom dan penyimpanan lokal IndexedDB." />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <title>StreamFlix: Platform Streaming Video Mandiri</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Bebas Neue & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="bg-[#141414] text-white min-h-screen flex flex-col selection:bg-[#E50914] selection:text-white">
+
+  <!-- ================= NAVBAR ================= -->
+  <header id="navbar" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 bg-gradient-to-b from-black/90 via-black/50 to-transparent px-4 md:px-12 py-3.5 flex items-center justify-between">
+    <div class="flex items-center space-x-6 md:space-x-10">
+      <!-- Netflix Style Logo -->
+      <a href="#" class="text-3xl md:text-4xl font-bebas text-[#E50914] tracking-wider font-extrabold flex items-center gap-1">
+        <span>STREAMFLIX</span>
+      </a>
+
+      <!-- Primary Navigation -->
+      <nav class="hidden md:flex items-center space-x-5 text-sm font-medium text-neutral-300">
+        <a href="#" class="text-white font-semibold transition hover:text-neutral-300">Beranda</a>
+        <a href="#row-trending-section" class="hover:text-white transition">Tren Sekarang</a>
+        <a href="#row-scifi-section" class="hover:text-white transition">Kategori</a>
+        <a href="#row-my-uploads-section" class="hover:text-white transition flex items-center gap-1.5 text-red-400 font-semibold">
+          <span>Upload Anda</span>
+        </a>
+        <a href="#row-my-list-section" class="hover:text-white transition flex items-center gap-1">
+          <span>Daftar Saya</span>
+          <span id="nav-my-list-count" class="bg-neutral-800 text-xs px-1.5 py-0.2 rounded font-mono text-neutral-300">0</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Secondary Actions -->
+    <div class="flex items-center space-x-4 md:space-x-6">
+      <!-- Search Bar -->
+      <div class="flex items-center relative">
+        <button id="search-toggle-btn" type="button" aria-label="Cari Film" class="text-neutral-300 hover:text-white transition p-1" title="Cari Film">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        </button>
+        <div id="search-box" class="w-0 opacity-0 overflow-hidden transition-all duration-300 ml-2">
+          <input 
+            type="text" 
+            id="search-input" 
+            placeholder="Judul, genre, aktor..." 
+            class="bg-black/80 border border-neutral-700 text-sm text-white px-3 py-1.5 rounded focus:outline-none focus:border-white w-52 md:w-64 placeholder-neutral-500"
+          />
+        </div>
+      </div>
+
+      <!-- Upload Video Button (Option B CTA) -->
+      <button class="btn-open-upload flex items-center space-x-1.5 bg-[#E50914] hover:bg-[#b80710] text-white text-xs md:text-sm font-semibold px-3 py-1.5 rounded transition shadow-lg shadow-red-900/40">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+        <span>Upload Video</span>
+      </button>
+
+      <!-- Profile Avatar -->
+      <div class="relative group cursor-pointer">
+        <div class="w-8 h-8 rounded bg-gradient-to-tr from-red-600 to-indigo-600 flex items-center justify-center font-bold text-sm shadow">
+          A
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= HERO BILLBOARD ================= -->
+  <section class="relative w-full h-[70vh] md:h-[82vh] flex items-center overflow-hidden">
+    <!-- Hero Background Image & Gradient -->
+    <div id="hero-bg" class="absolute inset-0 bg-cover bg-center transition-all duration-700"></div>
+
+    <!-- Hero Content -->
+    <div class="relative z-10 px-4 md:px-12 max-w-2xl mt-16 md:mt-24 space-y-4">
+      <div class="flex items-center space-x-2 text-xs md:text-sm">
+        <span class="bg-[#E50914] text-white font-bold px-2 py-0.5 rounded text-[11px] uppercase tracking-wider">FILM UNGGULAN</span>
+        <span id="hero-match" class="text-[#46d369] font-bold">98% Cocok</span>
+        <span id="hero-rating" class="border border-neutral-500 text-neutral-300 px-1 rounded text-[11px]">16+</span>
+        <span id="hero-quality" class="border border-neutral-500 text-neutral-300 px-1 rounded text-[11px] font-bold">4K Ultra HD</span>
+      </div>
+
+      <h1 id="hero-title" class="text-3xl md:text-6xl font-extrabold tracking-tight drop-shadow-lg text-white">
+        Tears of Steel
+      </h1>
+
+      <p id="hero-tagline" class="text-sm md:text-base font-medium text-neutral-300 drop-shadow">
+        Kisah fiksi ilmiah di masa depan distopia Amsterdam.
+      </p>
+
+      <p id="hero-synopsis" class="text-xs md:text-sm text-neutral-400 line-clamp-3 leading-relaxed drop-shadow">
+        Di masa depan dystopian yang dikuasai oleh robot raksasa, sekelompok pejuang dan ilmuwan berusaha menyelamatkan dunia.
+      </p>
+
+      <!-- Hero Buttons -->
+      <div class="flex items-center space-x-3 pt-2">
+        <button id="hero-play-btn" class="flex items-center space-x-2 bg-white text-black font-bold px-6 py-2.5 rounded hover:bg-neutral-200 transition shadow-lg cursor-pointer">
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <span>Putar Sekarang</span>
+        </button>
+        <button id="hero-info-btn" class="flex items-center space-x-2 bg-neutral-600/70 hover:bg-neutral-600/90 text-white font-semibold px-5 py-2.5 rounded backdrop-blur transition cursor-pointer">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <span>Info Selengkapnya</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MAIN CATALOG ROWS ================= -->
+  <main class="relative z-20 -mt-12 md:-mt-24 space-y-8 md:space-y-12 pb-20 px-4 md:px-12 flex-1">
+
+    <!-- Search Results Row (Dynamic) -->
+    <section id="search-results-section" class="hidden space-y-3">
+      <h2 id="search-query-label" class="text-lg md:text-2xl font-bold text-white tracking-wide">
+        Hasil Pencarian
+      </h2>
+      <div class="relative row-container">
+        <div id="row-search-results" class="flex space-x-4 overflow-x-auto py-4 no-scrollbar scroll-smooth"></div>
+      </div>
+    </section>
+
+    <!-- My Uploads Row (Option B Core) -->
+    <section id="row-my-uploads-section" class="hidden space-y-3">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <span class="w-1.5 h-6 bg-[#E50914] rounded"></span>
+          <h2 class="text-lg md:text-2xl font-bold text-white tracking-wide">Video Unggahan Anda (Koleksi Lokal)</h2>
+        </div>
+        <button class="btn-open-upload text-xs md:text-sm text-[#E50914] hover:underline font-semibold flex items-center gap-1">
+          <span>+ Upload Video Baru</span>
+        </button>
+      </div>
+      <div class="relative row-container">
+        <div id="row-my-uploads" class="flex space-x-4 overflow-x-auto py-4 no-scrollbar scroll-smooth"></div>
+      </div>
+    </section>
+
+    <!-- My List Row -->
+    <section id="row-my-list-section" class="hidden space-y-3">
+      <div class="flex items-center space-x-2">
+        <span class="w-1.5 h-6 bg-amber-500 rounded"></span>
+        <h2 class="text-lg md:text-2xl font-bold text-white tracking-wide">Daftar Tontonan Saya</h2>
+      </div>
+      <div class="relative row-container">
+        <div id="row-my-list" class="flex space-x-4 overflow-x-auto py-4 no-scrollbar scroll-smooth"></div>
+      </div>
+    </section>
+
+    <!-- Trending Row -->
+    <section id="row-trending-section" class="space-y-3 scroll-mt-20">
+      <div class="flex items-center space-x-2">
+        <span class="w-1.5 h-6 bg-[#E50914] rounded"></span>
+        <h2 class="text-lg md:text-2xl font-bold text-white tracking-wide">Sedang Tren Sekarang</h2>
+      </div>
+      <div class="relative row-container group">
+        <button onclick="document.getElementById('row-trending').scrollBy({left: -400, behavior: 'smooth'})" class="row-scroll-btn left-0 rounded-r-md">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <div id="row-trending" class="flex space-x-4 overflow-x-auto py-4 no-scrollbar scroll-smooth"></div>
+        <button onclick="document.getElementById('row-trending').scrollBy({left: 400, behavior: 'smooth'})" class="row-scroll-btn right-0 rounded-l-md">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- Sci-Fi & Action Row -->
+    <section id="row-scifi-section" class="space-y-3 scroll-mt-20">
+      <div class="flex items-center space-x-2">
+        <span class="w-1.5 h-6 bg-cyan-500 rounded"></span>
+        <h2 class="text-lg md:text-2xl font-bold text-white tracking-wide">Fiksi Ilmiah & Petualangan</h2>
+      </div>
+      <div class="relative row-container group">
+        <button onclick="document.getElementById('row-scifi').scrollBy({left: -400, behavior: 'smooth'})" class="row-scroll-btn left-0 rounded-r-md">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <div id="row-scifi" class="flex space-x-4 overflow-x-auto py-4 no-scrollbar scroll-smooth"></div>
+        <button onclick="document.getElementById('row-scifi').scrollBy({left: 400, behavior: 'smooth'})" class="row-scroll-btn right-0 rounded-l-md">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- All Movies Row -->
+    <section class="space-y-3">
+      <div class="flex items-center space-x-2">
+        <span class="w-1.5 h-6 bg-purple-500 rounded"></span>
+        <h2 class="text-lg md:text-2xl font-bold text-white tracking-wide">Semua Katalog Streaming</h2>
+      </div>
+      <div class="relative row-container group">
+        <button onclick="document.getElementById('row-all').scrollBy({left: -400, behavior: 'smooth'})" class="row-scroll-btn left-0 rounded-r-md">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <div id="row-all" class="flex space-x-4 overflow-x-auto py-4 no-scrollbar scroll-smooth"></div>
+        <button onclick="document.getElementById('row-all').scrollBy({left: 400, behavior: 'smooth'})" class="row-scroll-btn right-0 rounded-l-md">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="border-t border-neutral-800 text-neutral-400 text-xs px-4 md:px-12 py-8 space-y-4">
+    <div class="flex flex-wrap gap-6">
+      <a href="#row-trending-section" class="hover:text-white hover:underline">Tren Sekarang</a>
+      <a href="#row-scifi-section" class="hover:text-white hover:underline">Fiksi Ilmiah</a>
+      <a href="../index.html" class="hover:text-white hover:underline">Kembali ke Portofolio MaveyyVlgd</a>
+    </div>
+    <p>© 2026 StreamFlix Video Streaming Application: arsitektur streaming video lokal &amp; mandiri.</p>
+  </footer>
+
+  <!-- ================= MODAL: DETAIL FILM ================= -->
+  <div id="detail-modal" role="dialog" aria-modal="true" aria-labelledby="detail-title" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-3 md:p-6 overflow-y-auto">
+    <div class="relative w-full max-w-4xl bg-[#181818] rounded-xl overflow-hidden shadow-2xl modal-animate-in border border-neutral-800">
+      
+      <!-- Close Button -->
+      <button id="close-detail-btn" type="button" aria-label="Tutup detail film" class="absolute top-4 right-4 z-20 w-9 h-9 bg-neutral-900/80 hover:bg-neutral-800 text-white rounded-full flex items-center justify-center transition border border-neutral-700">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <!-- Banner Header -->
+      <div id="detail-banner" class="relative w-full h-72 md:h-96 bg-cover bg-center flex items-end p-6 md:p-10">
+        <div class="space-y-3 z-10">
+          <h2 id="detail-title" class="text-3xl md:text-5xl font-extrabold text-white drop-shadow">Judul Film</h2>
+          <p id="detail-tagline" class="text-sm text-neutral-300"></p>
+          <div class="flex items-center space-x-3 pt-1">
+            <button id="detail-play-btn" class="flex items-center space-x-2 bg-white text-black font-bold px-6 py-2 rounded hover:bg-neutral-200 transition shadow">
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              <span>Putar</span>
+            </button>
+            <button id="detail-delete-btn" class="hidden flex items-center space-x-1.5 bg-red-950/80 hover:bg-red-900 text-red-200 border border-red-700 font-semibold px-4 py-2 rounded transition">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+              <span>Hapus Video</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-6 md:p-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="md:col-span-2 space-y-4">
+          <div class="flex items-center space-x-3 text-sm">
+            <span id="detail-match" class="text-[#46d369] font-bold">98% Cocok</span>
+            <span id="detail-year" class="text-neutral-400">2024</span>
+            <span id="detail-rating" class="border border-neutral-600 px-1.5 py-0.5 rounded text-xs text-neutral-300">16+</span>
+            <span id="detail-duration" class="text-neutral-400">12m</span>
+            <span id="detail-quality" class="border border-neutral-600 px-1.5 py-0.5 rounded text-xs font-bold text-neutral-300">Ultra HD</span>
+          </div>
+          <p id="detail-synopsis" class="text-neutral-300 text-sm md:text-base leading-relaxed"></p>
+        </div>
+
+        <div class="space-y-3 text-xs md:text-sm text-neutral-400 border-t md:border-t-0 md:border-l border-neutral-800 pt-4 md:pt-0 md:pl-6">
+          <div>
+            <span class="text-neutral-500 block">Pemeran:</span>
+            <span id="detail-cast" class="text-neutral-300 font-medium"></span>
+          </div>
+          <div>
+            <span class="text-neutral-500 block">Sutradara:</span>
+            <span id="detail-director" class="text-neutral-300 font-medium"></span>
+          </div>
+          <div>
+            <span class="text-neutral-500 block">Genre:</span>
+            <span id="detail-genres" class="text-neutral-300 font-medium"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: UPLOAD VIDEO (OPTION B STUDIO) ================= -->
+  <div id="upload-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-3 md:p-6 overflow-y-auto">
+    <div class="relative w-full max-w-2xl bg-[#181818] rounded-2xl overflow-hidden shadow-2xl modal-animate-in border border-neutral-800 p-6 md:p-8">
+      
+      <!-- Close Button -->
+      <button id="close-upload-btn" class="absolute top-4 right-4 z-20 w-8 h-8 bg-neutral-800 hover:bg-neutral-700 text-white rounded-full flex items-center justify-center transition">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <div class="mb-5">
+        <h3 class="text-2xl font-bold text-white flex items-center gap-2">
+          <span class="text-[#E50914]">Upload Video Baru</span>
+        </h3>
+        <p class="text-xs md:text-sm text-neutral-400 mt-1">
+          Unggah file video (MP4/WebM) dari perangkat Anda. Video akan disimpan di penyimpanan lokal browser Anda dan dapat langsung di-stream!
+        </p>
+      </div>
+
+      <form id="upload-form" class="space-y-4">
+        <!-- Dropzone -->
+        <div id="upload-dropzone" class="border-2 border-dashed border-neutral-700 hover:border-neutral-500 rounded-xl p-8 text-center cursor-pointer transition bg-neutral-900/50">
+          <input type="file" id="video-file-input" accept="video/mp4,video/webm,video/ogg,video/quicktime" class="hidden" />
+          <div class="flex flex-col items-center justify-center space-y-2">
+            <div class="w-12 h-12 rounded-full bg-red-950/60 border border-red-800 flex items-center justify-center text-[#E50914]">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+            </div>
+            <p class="text-sm font-semibold text-white">Tarik & lepas file video di sini, atau <span class="text-[#E50914] underline">pilih file</span></p>
+            <p class="text-xs text-neutral-500">Mendukung MP4, WebM, MKV</p>
+          </div>
+        </div>
+
+        <!-- Video Preview Container (Appears after file selected) -->
+        <div id="upload-preview-container" class="hidden space-y-3">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="text-xs text-neutral-400 mb-1 block">Preview Video:</label>
+              <video id="upload-preview-video" class="w-full aspect-video bg-black rounded-lg border border-neutral-700 object-contain" muted></video>
+            </div>
+            <div>
+              <label class="text-xs text-neutral-400 mb-1 block">Auto-Generated Thumbnail:</label>
+              <img id="upload-poster-preview" class="w-full aspect-video bg-black rounded-lg border border-neutral-700 object-cover hidden" alt="Thumbnail" />
+              <canvas id="upload-thumb-canvas" class="hidden"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Title & Metadata -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-neutral-300 mb-1">Judul Video *</label>
+            <input 
+              type="text" 
+              id="upload-title" 
+              required 
+              placeholder="Contoh: Dokumenter Proyek Saya" 
+              class="w-full bg-[#252525] border border-neutral-700 rounded px-3 py-2 text-sm text-white focus:outline-none focus:border-[#E50914]"
+            />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-neutral-300 mb-1">Genre / Kategori</label>
+            <select id="upload-genre" class="w-full bg-[#252525] border border-neutral-700 rounded px-3 py-2 text-sm text-white focus:outline-none focus:border-[#E50914]">
+              <option value="sci-fi">Sci-Fi & Cyberpunk</option>
+              <option value="action">Aksi & Petualangan</option>
+              <option value="documentary">Dokumenter</option>
+              <option value="animation">Animasi</option>
+              <option value="drama">Drama & Sinema</option>
+              <option value="tutorial">Tutorial & Vlog</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-neutral-300 mb-1">Klasifikasi Usia</label>
+            <select id="upload-rating" class="w-full bg-[#252525] border border-neutral-700 rounded px-3 py-2 text-sm text-white focus:outline-none focus:border-[#E50914]">
+              <option value="SU">SU (Semua Umur)</option>
+              <option value="13+">13+ (Remaja)</option>
+              <option value="16+" selected>16+ (Dewasa Muda)</option>
+              <option value="18+">18+ (Dewasa)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-neutral-300 mb-1">Tahun Rilis</label>
+            <input type="number" id="upload-year" value="2026" class="w-full bg-[#252525] border border-neutral-700 rounded px-3 py-2 text-sm text-white focus:outline-none focus:border-[#E50914]" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-neutral-300 mb-1">Sinopsis / Deskripsi</label>
+          <textarea 
+            id="upload-synopsis" 
+            rows="2" 
+            placeholder="Tuliskan gambaran cerita atau isi video ini..." 
+            class="w-full bg-[#252525] border border-neutral-700 rounded px-3 py-2 text-sm text-white focus:outline-none focus:border-[#E50914]"
+          ></textarea>
+        </div>
+
+        <!-- Progress Indicator -->
+        <div id="upload-progress-container" class="hidden space-y-1.5 pt-2">
+          <div class="flex justify-between text-xs text-neutral-300">
+            <span>Menyimpan ke Storage Platform...</span>
+            <span id="upload-progress-percent">0%</span>
+          </div>
+          <div class="w-full h-2 bg-neutral-800 rounded-full overflow-hidden">
+            <div id="upload-progress-bar" class="h-full bg-[#E50914] w-0 transition-all duration-200"></div>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="pt-3">
+          <button 
+            type="submit" 
+            class="w-full bg-[#E50914] hover:bg-[#b80710] text-white font-bold py-2.5 rounded-lg transition shadow-lg shadow-red-900/50 cursor-pointer"
+          >
+            Simpan & Publikasikan ke StreamFlix
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= CUSTOM NETFLIX VIDEO PLAYER ================= -->
+  <div id="player-modal" class="fixed inset-0 z-50 bg-black hidden flex items-center justify-center select-none">
+    
+    <!-- Video Element -->
+    <video id="main-video" class="w-full h-full object-contain cursor-pointer" playsinline preload="auto"></video>
+
+    <!-- Buffer Spinner -->
+    <div id="player-spinner" class="absolute inset-0 flex items-center justify-center pointer-events-none hidden">
+      <div class="netflix-spinner"></div>
+    </div>
+
+    <!-- Controls Overlay (Auto-Hides on mouse idle) -->
+    <div id="player-controls-overlay" class="absolute inset-0 flex flex-col justify-between p-4 md:p-8 bg-gradient-to-t from-black/90 via-transparent to-black/70 transition-opacity duration-300">
+      
+      <!-- Top Bar: Back & Title -->
+      <div class="flex items-center space-x-4">
+        <button id="player-back-btn" class="text-white hover:text-neutral-300 p-2 rounded-full hover:bg-white/10 transition" title="Kembali ke Beranda">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        </button>
+        <div>
+          <h3 id="player-title" class="text-white font-bold text-lg md:text-2xl drop-shadow">Now Playing</h3>
+          <p class="text-xs text-neutral-400">StreamFlix Cinema Player</p>
+        </div>
+      </div>
+
+      <!-- Bottom Control Bar -->
+      <div class="space-y-3">
+        <!-- Scrubber Progress Bar -->
+        <div class="relative group py-2 cursor-pointer" id="player-progress-bar">
+          <!-- Hover timestamp tooltip -->
+          <div id="player-hover-tooltip" class="absolute -top-7 hidden bg-neutral-900/90 text-white text-xs px-2 py-0.5 rounded -translate-x-1/2 pointer-events-none font-mono">
+            00:00
+          </div>
+          <!-- Track -->
+          <div class="w-full h-1.5 group-hover:h-2.5 bg-neutral-700/60 rounded-full overflow-hidden transition-all relative">
+            <div id="player-buffered-bar" class="absolute left-0 top-0 bottom-0 bg-neutral-500/60 w-0"></div>
+            <div id="player-played-bar" class="absolute left-0 top-0 bottom-0 bg-[#E50914] w-0"></div>
+          </div>
+        </div>
+
+        <!-- Buttons Row -->
+        <div class="flex items-center justify-between text-white">
+          <div class="flex items-center space-x-4 md:space-x-6">
+            <!-- Play/Pause -->
+            <button id="player-play-btn" class="hover:text-neutral-300 transition" title="Play/Pause (Space)">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </button>
+
+            <!-- Rewind 10s -->
+            <button id="player-rewind-btn" class="hover:text-neutral-300 transition" title="Mundur 10 detik">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0019 16V8a1 1 0 00-1.6-.8l-5.334 4zM4.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0011 16V8a1 1 0 00-1.6-.8l-5.334 4z"/></svg>
+            </button>
+
+            <!-- Forward 10s -->
+            <button id="player-forward-btn" class="hover:text-neutral-300 transition" title="Maju 10 detik">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.933 12.8a1 1 0 000-1.6L6.6 7.2A1 1 0 005 8v8a1 1 0 001.6.8l5.333-4zM19.933 12.8a1 1 0 000-1.6l-5.333-4A1 1 0 0013 8v8a1 1 0 001.6.8l5.333-4z"/></svg>
+            </button>
+
+            <!-- Volume Slider -->
+            <div class="flex items-center space-x-2 group">
+              <button id="player-volume-btn" class="hover:text-neutral-300 transition" title="Mute/Unmute (M)">
+                <svg id="volume-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                </svg>
+              </button>
+              <input 
+                type="range" 
+                id="player-volume-slider" 
+                min="0" 
+                max="1" 
+                step="0.05" 
+                value="1" 
+                class="w-16 md:w-24 h-1 netflix-slider" 
+              />
+            </div>
+
+            <!-- Time Display -->
+            <span id="player-time-display" class="text-xs md:text-sm font-mono text-neutral-300">
+              00:00 / 00:00
+            </span>
+          </div>
+
+          <div class="flex items-center space-x-4 md:space-x-5">
+            <!-- Playback Speed Menu -->
+            <div class="relative">
+              <button id="player-speed-btn" class="text-xs font-semibold px-2 py-1 rounded bg-neutral-800/80 hover:bg-neutral-700 transition" title="Kecepatan Putar">
+                1x
+              </button>
+              <div id="player-speed-menu" class="absolute bottom-9 right-0 bg-neutral-900 border border-neutral-700 rounded-md py-1 w-24 hidden shadow-xl text-center text-xs space-y-1">
+                <button class="speed-option w-full py-1 hover:bg-[#E50914] transition" data-speed="0.5">0.5x</button>
+                <button class="speed-option w-full py-1 hover:bg-[#E50914] transition" data-speed="0.75">0.75x</button>
+                <button class="speed-option w-full py-1 hover:bg-[#E50914] transition" data-speed="1.0">1.0x (Normal)</button>
+                <button class="speed-option w-full py-1 hover:bg-[#E50914] transition" data-speed="1.25">1.25x</button>
+                <button class="speed-option w-full py-1 hover:bg-[#E50914] transition" data-speed="1.5">1.5x</button>
+                <button class="speed-option w-full py-1 hover:bg-[#E50914] transition" data-speed="2.0">2.0x</button>
+              </div>
+            </div>
+
+            <!-- Picture-in-Picture -->
+            <button id="player-pip-btn" class="hover:text-neutral-300 transition" title="Picture-in-Picture">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+            </button>
+
+            <!-- Fullscreen -->
+            <button id="player-fullscreen-btn" class="hover:text-neutral-300 transition" title="Layar Penuh (F)">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
