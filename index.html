@@ -267,10 +267,10 @@
     const { useState, useEffect, useMemo, useRef } = React;
 
     const VIEWS = [
-      { id: "overview", label: "Overview", pinLabel: "Studio" },
-      { id: "projects", label: "Projects", pinLabel: "Workstation · 6 Drops" },
-      { id: "about", label: "About", pinLabel: "RMIK Archive" },
-      { id: "contact", label: "Contact", pinLabel: "Lounge & Contact" },
+      { id: "overview", label: "Overview", pinLabel: "Studio", mobilePin: "Studio" },
+      { id: "projects", label: "Projects", pinLabel: "Workstation · 6 Drops", mobilePin: "Projects (6)" },
+      { id: "about", label: "About", pinLabel: "RMIK Archive", mobilePin: "RMIK Archive" },
+      { id: "contact", label: "Contact", pinLabel: "Lounge & Contact", mobilePin: "Contact" },
     ];
 
     function parseHash() {
@@ -954,8 +954,8 @@
           {/* Fullscreen 3D Canvas */}
           <div ref={canvasHostRef} className="absolute inset-0 w-full h-full" />
 
-          {/* Interactive 3D Floating Zone Pins */}
-          <div className="absolute inset-0 pointer-events-none z-10">
+          {/* Interactive 3D Floating Zone Pins (hidden on mobile when bottom sheet is open so nothing bleeds behind text) */}
+          <div className={`absolute inset-0 pointer-events-none z-10 ${drawerOpen ? "hidden lg:block" : "block"}`}>
             {VIEWS.filter((v) => v.id !== "overview").map((v) => (
               <div
                 key={v.id}
@@ -972,20 +972,21 @@
                   className="zone-pin-btn"
                 >
                   <span className="w-2 h-2 rounded-full bg-current" aria-hidden="true" />
-                  <span>{v.pinLabel}</span>
+                  <span className="lg:hidden">{v.mobilePin}</span>
+                  <span className="hidden lg:inline">{v.pinLabel}</span>
                 </button>
               </div>
             ))}
           </div>
 
-          {/* Top Floating Studio Header */}
-          <header className="absolute top-0 left-0 right-0 z-20 p-3 sm:p-4 flex flex-wrap items-center justify-between gap-2.5 pointer-events-none">
+          {/* Top Floating Studio Header (Compact single row on mobile!) */}
+          <header className="absolute top-0 left-0 right-0 z-20 p-2.5 sm:p-4 flex items-center justify-between gap-2 pointer-events-none">
             <button
               type="button"
               onClick={() => selectView("overview")}
-              className="pointer-events-auto min-h-[46px] px-3.5 py-2 rounded-2xl bg-glass border line-subtle flex items-center gap-2.5 text-left"
+              className="pointer-events-auto min-h-[44px] px-2.5 sm:px-3.5 py-1.5 rounded-xl sm:rounded-2xl bg-glass border line-subtle flex items-center gap-2 text-left shrink-0"
             >
-              <span className="w-8 h-8 rounded-lg overflow-hidden border line-subtle bg-subtle shrink-0 inline-block">
+              <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg overflow-hidden border line-subtle bg-subtle shrink-0 inline-block">
                 {!avatarError ? (
                   <img src={profile.avatarUrl} alt={profile.fullName} width="32" height="32" className="w-full h-full object-cover" />
                 ) : (
@@ -993,14 +994,14 @@
                 )}
               </span>
               <span className="leading-tight">
-                <span className="block font-editorial font-bold text-sm">{profile.name}</span>
-                <span className="block font-mono text-[10px] ink-muted">{wibTime} · Pacitan</span>
+                <span className="block font-editorial font-bold text-xs sm:text-sm">{profile.name}</span>
+                <span className="hidden sm:block font-mono text-[10px] ink-muted">{wibTime} · Pacitan</span>
               </span>
             </button>
 
             <nav
               aria-label="Studio zones"
-              className="pointer-events-auto order-3 lg:order-2 w-full lg:w-auto flex items-center justify-between lg:justify-center gap-1 p-1 rounded-xl bg-glass border line-subtle"
+              className="hidden lg:flex pointer-events-auto items-center justify-center gap-1 p-1 rounded-xl bg-glass border line-subtle"
             >
               {VIEWS.map((v) => (
                 <button
@@ -1008,7 +1009,7 @@
                   type="button"
                   aria-pressed={activeView === v.id}
                   onClick={() => selectView(v.id)}
-                  className={`flex-1 lg:flex-none min-h-[40px] px-3.5 rounded-lg text-xs font-semibold transition-colors ${
+                  className={`min-h-[40px] px-3.5 rounded-lg text-xs font-semibold transition-colors ${
                     activeView === v.id ? "btn-primary" : "ink-muted hover:bg-subtle"
                   }`}
                 >
@@ -1017,19 +1018,20 @@
               ))}
             </nav>
 
-            <div className="pointer-events-auto order-2 lg:order-3 flex items-center gap-2">
+            <div className="pointer-events-auto flex items-center gap-1.5 sm:gap-2">
               <button
                 type="button"
                 onClick={() => setMode3D(false)}
-                className="min-h-[44px] px-3 rounded-xl bg-glass border line-subtle text-xs font-semibold hover:border-[var(--accent)]"
+                className="min-h-[44px] px-2.5 sm:px-3 rounded-xl bg-glass border line-subtle text-xs font-semibold hover:border-[var(--accent)]"
               >
-                Mode 2D
+                <span className="sm:hidden">2D</span>
+                <span className="hidden sm:inline">Mode 2D</span>
               </button>
               <button
                 type="button"
                 aria-pressed={isDark}
                 onClick={() => setTheme(isDark ? "light" : "dark")}
-                className="min-h-[44px] px-3 rounded-xl bg-glass border line-subtle text-xs font-semibold hover:border-[var(--accent)]"
+                className="min-h-[44px] px-2.5 sm:px-3 rounded-xl bg-glass border line-subtle text-xs font-semibold hover:border-[var(--accent)]"
               >
                 {isDark ? "Night" : "Light"}
               </button>
@@ -1037,17 +1039,19 @@
                 type="button"
                 aria-expanded={drawerOpen}
                 onClick={() => setDrawerOpen((o) => !o)}
-                className="min-h-[44px] px-3.5 rounded-xl btn-primary text-xs font-semibold"
+                className="min-h-[44px] px-3 sm:px-3.5 rounded-xl btn-primary text-xs font-semibold"
               >
-                {drawerOpen ? "Tutup Panel" : "Buka Panel"}
+                {drawerOpen ? "Tutup" : "Info"}
               </button>
             </div>
           </header>
 
-          {/* Bottom-Left 3D Camera Controls */}
+          {/* Bottom-Left 3D Camera Controls (hidden on mobile while sheet is open so nothing collides!) */}
           <nav
             aria-label="3D Camera Controls"
-            className="absolute left-3 sm:left-4 bottom-3 sm:bottom-4 z-20 flex items-center gap-1.5 p-1.5 rounded-2xl bg-glass border line-subtle"
+            className={`absolute left-3 sm:left-4 bottom-[74px] lg:bottom-4 z-20 flex items-center gap-1.5 p-1.5 rounded-2xl bg-glass border line-subtle ${
+              drawerOpen ? "hidden lg:flex" : "flex"
+            }`}
           >
             <button
               type="button"
@@ -1060,7 +1064,7 @@
                 autoOrbit ? "btn-primary" : "bg-pane border line-subtle"
               }`}
             >
-              {autoOrbit ? "Auto Orbit: On" : "Orbit Bebas"}
+              {autoOrbit ? "Auto: On" : "Orbit"}
             </button>
             <button
               type="button"
@@ -1093,17 +1097,56 @@
             </span>
           </nav>
 
-          {/* Right Collapsible Studio Content Drawer */}
+          {/* Solid Mobile Slide-Up Sheet / Desktop Right Drawer */}
           {drawerOpen && (
             <main
               id="studio-drawer"
-              className="drawer-anim absolute z-30 right-3 sm:right-4 bottom-16 sm:bottom-4 left-3 sm:left-auto sm:w-[410px] top-auto sm:top-[76px] max-h-[60vh] sm:max-h-none rounded-2xl bg-glass border line-subtle flex flex-col overflow-hidden"
+              className="drawer-anim absolute z-30 right-0 left-0 bottom-[62px] lg:bottom-4 lg:right-4 lg:left-auto lg:w-[410px] lg:top-[76px] max-h-[68dvh] lg:max-h-none rounded-t-2xl lg:rounded-2xl bg-pane lg:bg-glass border-t lg:border line-subtle shadow-2xl flex flex-col overflow-hidden"
             >
-              <div className="flex-1 overflow-y-auto p-5">
+              <div className="lg:hidden px-4 py-2.5 border-b line-subtle flex items-center justify-between gap-2 shrink-0 bg-rail">
+                <span className="font-mono text-xs font-semibold ink-accent uppercase">
+                  {VIEWS.find((v) => v.id === activeView)?.label}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setDrawerOpen(false)}
+                  className="min-h-[38px] px-3 rounded-lg btn-secondary text-xs font-semibold"
+                >
+                  Lihat 3D
+                </button>
+              </div>
+              <div className="flex-1 overflow-y-auto p-4 sm:p-5">
                 {renderActiveContent()}
               </div>
             </main>
           )}
+
+          {/* Thumb-Friendly Mobile Bottom Tab Bar */}
+          <nav
+            aria-label="Mobile studio zones"
+            className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-pane border-t line-subtle grid grid-cols-4"
+            style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
+          >
+            {VIEWS.map((v) => {
+              const active = activeView === v.id;
+              return (
+                <button
+                  key={v.id}
+                  type="button"
+                  aria-pressed={active}
+                  onClick={() => selectView(v.id)}
+                  className={`min-h-[60px] px-1 flex flex-col items-center justify-center gap-0.5 text-xs font-semibold transition-colors ${
+                    active ? "ink-accent border-t-2 border-[var(--accent)]" : "ink-muted"
+                  }`}
+                >
+                  <span>{v.label}</span>
+                  {v.id === "projects" && (
+                    <span className="font-mono text-[10px] opacity-75">{projects.length} drops</span>
+                  )}
+                </button>
+              );
+            })}
+          </nav>
         </div>
       );
     }

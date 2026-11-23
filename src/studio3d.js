@@ -38,10 +38,18 @@ function createWoodTexture(baseHex, plankLines = true) {
 }
 
 const CAMERA_PRESETS = {
-  overview: { look: new THREE.Vector3(1.5, 0.9, 0.25), yaw: Math.PI / 4, elev: 12.8, zoom: 0.96 },
-  projects: { look: new THREE.Vector3(-1.4, 1.05, -1.2), yaw: Math.PI / 4 - 0.16, elev: 10.6, zoom: 1.45 },
-  about: { look: new THREE.Vector3(2.2, 1.35, -3.0), yaw: Math.PI / 4 + 0.14, elev: 10.8, zoom: 1.42 },
-  contact: { look: new THREE.Vector3(2.8, 0.85, 1.6), yaw: Math.PI / 4 - 0.22, elev: 10.8, zoom: 1.44 },
+  desktop: {
+    overview: { look: new THREE.Vector3(1.5, 0.9, 0.25), yaw: Math.PI / 4, elev: 12.8, zoom: 0.96 },
+    projects: { look: new THREE.Vector3(-1.4, 1.05, -1.2), yaw: Math.PI / 4 - 0.16, elev: 10.6, zoom: 1.45 },
+    about: { look: new THREE.Vector3(2.2, 1.35, -3.0), yaw: Math.PI / 4 + 0.14, elev: 10.8, zoom: 1.42 },
+    contact: { look: new THREE.Vector3(2.8, 0.85, 1.6), yaw: Math.PI / 4 - 0.22, elev: 10.8, zoom: 1.44 },
+  },
+  mobile: {
+    overview: { look: new THREE.Vector3(-0.2, 0.7, -0.3), yaw: Math.PI / 4, elev: 13.4, zoom: 0.96 },
+    projects: { look: new THREE.Vector3(-2.3, 0.95, -1.5), yaw: Math.PI / 4 - 0.12, elev: 11.2, zoom: 1.48 },
+    about: { look: new THREE.Vector3(1.4, 1.25, -3.5), yaw: Math.PI / 4 + 0.14, elev: 11.4, zoom: 1.44 },
+    contact: { look: new THREE.Vector3(1.9, 0.8, 1.4), yaw: Math.PI / 4 - 0.18, elev: 11.4, zoom: 1.46 },
+  },
 };
 
 const ZONE_PINS = [
@@ -340,16 +348,23 @@ export function mountMaveyyStudio3D(container, options = {}) {
   focusRing.visible = false;
   studio.add(focusRing);
 
+  const isMobileViewport = () => (container.clientWidth || window.innerWidth) < 1024;
+  const getPreset = (view) => {
+    const bank = isMobileViewport() ? CAMERA_PRESETS.mobile : CAMERA_PRESETS.desktop;
+    return bank[view] || bank.overview;
+  };
+
   // Camera & state
+  const initPreset = getPreset(options.activeView || 'overview');
   const cam = {
-    yaw: CAMERA_PRESETS.overview.yaw,
-    targetYaw: CAMERA_PRESETS.overview.yaw,
-    elev: CAMERA_PRESETS.overview.elev,
-    targetElev: CAMERA_PRESETS.overview.elev,
-    zoom: CAMERA_PRESETS.overview.zoom,
-    targetZoom: CAMERA_PRESETS.overview.zoom,
-    look: CAMERA_PRESETS.overview.look.clone(),
-    targetLook: CAMERA_PRESETS.overview.look.clone(),
+    yaw: initPreset.yaw,
+    targetYaw: initPreset.yaw,
+    elev: initPreset.elev,
+    targetElev: initPreset.elev,
+    zoom: initPreset.zoom,
+    targetZoom: initPreset.zoom,
+    look: initPreset.look.clone(),
+    targetLook: initPreset.look.clone(),
   };
 
   let state = {
@@ -359,7 +374,7 @@ export function mountMaveyyStudio3D(container, options = {}) {
   };
 
   const applyViewCamera = (view) => {
-    const preset = CAMERA_PRESETS[view] || CAMERA_PRESETS.overview;
+    const preset = getPreset(view);
     cam.targetLook.copy(preset.look);
     cam.targetYaw = preset.yaw;
     cam.targetElev = preset.elev;
@@ -383,10 +398,18 @@ export function mountMaveyyStudio3D(container, options = {}) {
   const fit = () => {
     const w = container.clientWidth || 1;
     const h = container.clientHeight || 1;
-    renderer.setSize(w, h, false);
+    renderer.setSize(w, h, true);
+    renderer.domElement.style.width = '100%';
+    renderer.domElement.style.height = '100%';
+    renderer.domElement.style.display = 'block';
     const aspect = w / h;
-    const halfH = aspect < 0.85 ? 7.2 : 5.3;
-    const halfW = halfH * aspect;
+    // Portrait phone: pastikan lebar penuh loft muat di layar 375px tanpa terpotong!
+    let halfH = aspect < 0.85 ? 7.4 : 5.3;
+    let halfW = halfH * aspect;
+    if (aspect < 0.85 && halfW < 6.2) {
+      halfW = 6.2;
+      halfH = halfW / aspect;
+    }
     camera.left = -halfW;
     camera.right = halfW;
     camera.top = halfH;
@@ -394,29 +417,55 @@ export function mountMaveyyStudio3D(container, options = {}) {
     camera.updateProjectionMatrix();
   };
   fit();
-  const ro = new ResizeObserver(fit);
+  const ro = new ResizeObserver(() => {
+    fit();
+    applyViewCamera(state.activeView);
+  });
   ro.observe(container);
 
-  // Raycaster click + orbit/zoom interactions
+  // Raycaster click + orbit/zoom + two-finger pinch interactions
   const raycaster = new THREE.Raycaster();
   const pointer = new THREE.Vector2();
   const dom = renderer.domElement;
   dom.style.cursor = 'grab';
+  dom.style.touchAction = 'none';
   let dragging = false;
   let moved = 0;
   let lastX = 0;
   let lastY = 0;
+  const activePointers = new Map();
+  let lastPinchDist = 0;
 
   const onDown = (e) => {
-    if (e.button !== 0) return;
-    dragging = true;
-    moved = 0;
-    lastX = e.clientX;
-    lastY = e.clientY;
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+    activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
     dom.setPointerCapture?.(e.pointerId);
-    dom.style.cursor = 'grabbing';
+    if (activePointers.size === 1) {
+      dragging = true;
+      moved = 0;
+      lastX = e.clientX;
+      lastY = e.clientY;
+      dom.style.cursor = 'grabbing';
+    } else if (activePointers.size === 2) {
+      dragging = false;
+      const pts = [...activePointers.values()];
+      lastPinchDist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
+    }
   };
   const onMove = (e) => {
+    if (!activePointers.has(e.pointerId)) return;
+    activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (activePointers.size === 2) {
+      const pts = [...activePointers.values()];
+      const dist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
+      if (lastPinchDist > 0 && dist > 0) {
+        if (state.autoOrbit && options.onUserInteract) options.onUserInteract();
+        cam.targetZoom = Math.min(2.2, Math.max(0.72, cam.targetZoom * (dist / lastPinchDist)));
+      }
+      lastPinchDist = dist;
+      moved += 10;
+      return;
+    }
     if (!dragging) return;
     const dx = e.clientX - lastX;
     const dy = e.clientY - lastY;
@@ -430,11 +479,13 @@ export function mountMaveyyStudio3D(container, options = {}) {
     }
   };
   const onUp = (e) => {
+    activePointers.delete(e.pointerId);
+    dom.releasePointerCapture?.(e.pointerId);
+    if (activePointers.size < 2) lastPinchDist = 0;
     if (!dragging) return;
     dragging = false;
-    dom.releasePointerCapture?.(e.pointerId);
     dom.style.cursor = 'grab';
-    if (moved < 6 && options.onSelectZone) {
+    if (moved < 8 && options.onSelectZone) {
       const rect = dom.getBoundingClientRect();
       pointer.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
       pointer.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
@@ -526,16 +577,21 @@ export function mountMaveyyStudio3D(container, options = {}) {
 
     renderer.render(scene, camera);
 
-    // Project 3D zone pins
+    // Project 3D zone pins (clamped cleanly inside viewport on narrow mobile screens)
     if (options.getPinEl) {
       const cw = container.clientWidth;
       const ch = container.clientHeight;
+      const padX = cw < 640 ? 78 : 20;
+      const padTop = cw < 640 ? 74 : 24;
+      const padBot = cw < 640 ? 128 : 24;
       for (const pin of ZONE_PINS) {
         const el = options.getPinEl(pin.id);
         if (!el) continue;
         projTmp.copy(pin.pos).project(camera);
-        const x = ((projTmp.x + 1) / 2) * cw;
-        const y = ((1 - projTmp.y) / 2) * ch;
+        let x = ((projTmp.x + 1) / 2) * cw;
+        let y = ((1 - projTmp.y) / 2) * ch;
+        x = Math.max(padX, Math.min(cw - padX, x));
+        y = Math.max(padTop, Math.min(ch - padBot, y));
         el.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0)`;
       }
     }
