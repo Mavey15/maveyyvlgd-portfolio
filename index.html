@@ -1,26 +1,26 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth" data-theme="light">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MaveyyVlgd (Muhammad Adhitya Pratama): Personal Archive & Mecut AI Portfolio</title>
-  <meta name="description" content="Personal portfolio and project archive of Muhammad Adhitya Pratama (MaveyyVlgd) from Pacitan: Health Information Management (RMIK), Medical Coding Assistant (MCA), SIMRS RSUD Voldigoad, E-SOP Klinik, and Hospital Statistics Calculator." />
+  <title>MaveyyVlgd (Muhammad Adhitya Pratama): Interactive 3D Studio & Archive</title>
+  <meta name="description" content="Interactive 3D personal studio and project archive of Muhammad Adhitya Pratama (MaveyyVlgd) from Pacitan: Health Information Management (RMIK), Medical Coding Assistant (MCA), SIMRS RSUD Voldigoad, E-SOP Klinik, Hospital Statistics Calculator, and StreamFlix." />
   <meta name="author" content="Muhammad Adhitya Pratama (MaveyyVlgd)" />
-  <meta name="theme-color" content="#0B0B0C" />
+  <meta name="theme-color" content="#F4F5F3" />
   <link rel="canonical" href="https://maveyyvlgd.vercel.app/" />
   <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
 
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="MaveyyVlgd Archive" />
-  <meta property="og:title" content="MaveyyVlgd (Muhammad Adhitya Pratama): Personal Archive & Portfolio" />
-  <meta property="og:description" content="RMIK & Health-Tech project archive by Muhammad Adhitya Pratama: Medical Coding Assistant, 20-Module SIMRS, E-SOP Desktop App, and Hospital Statistics Calculator." />
+  <meta property="og:site_name" content="MaveyyVlgd 3D Studio" />
+  <meta property="og:title" content="MaveyyVlgd (Muhammad Adhitya Pratama): Interactive 3D Studio" />
+  <meta property="og:description" content="Explore Muhammad Adhitya Pratama's 3D studio and RMIK Health-Tech project archive: MCA, 20-Module SIMRS, E-SOP Desktop App, Hospital Statistics Calculator, and StreamFlix." />
   <meta property="og:url" content="https://maveyyvlgd.vercel.app/" />
   <meta property="og:image" content="https://maveyyvlgd.vercel.app/avatar.jpg" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="MaveyyVlgd (Muhammad Adhitya Pratama): Personal Archive & Portfolio" />
-  <meta name="twitter:description" content="RMIK & Health-Tech project archive by Muhammad Adhitya Pratama from Pacitan, Indonesia." />
+  <meta name="twitter:title" content="MaveyyVlgd (Muhammad Adhitya Pratama): Interactive 3D Studio" />
+  <meta name="twitter:description" content="Interactive 3D studio and RMIK Health-Tech archive by Muhammad Adhitya Pratama from Pacitan, Indonesia." />
   <meta name="twitter:image" content="https://maveyyvlgd.vercel.app/avatar.jpg" />
 
   <script type="application/ld+json">
@@ -46,12 +46,20 @@
     }
   </script>
 
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.170.0/build/three.module.js"
+      }
+    }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://unpkg.com" crossorigin />
   <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
     rel="stylesheet" />
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -60,19 +68,9 @@
       theme: {
         extend: {
           fontFamily: {
-            display: ["Syne", "sans-serif"],
-            poster: ["Anton", "sans-serif"],
-            sans: ["Plus Jakarta Sans", "sans-serif"],
-            mono: ["IBM Plex Mono", "monospace"],
-          },
-          colors: {
-            acid: "#D4FF00",
-            safety: "#FF4D00",
-            safetyLight: "#B83200",
-            safetyDarkText: "#FF6A2B",
-            asphalt: "#0B0B0C",
-            concrete: "#151518",
-            paper: "#F3EFE6",
+            serif: ["'Fraunces'", "Georgia", "serif"],
+            sans: ["'Plus Jakarta Sans'", "sans-serif"],
+            mono: ["'IBM Plex Mono'", "monospace"],
           },
         },
       },
@@ -80,1480 +78,1038 @@
   </script>
 
   <style>
+    :root,
+    [data-theme="light"] {
+      --bg-rail: #F4F5F3;
+      --bg-pane: #FFFFFF;
+      --bg-glass: rgba(255, 255, 255, 0.92);
+      --bg-subtle: #EAECE9;
+      --bg-active: #E0EFEA;
+      --bg-3d: radial-gradient(120% 95% at 50% 8%, #FBFDFB 0%, #EEF2EE 56%, #D9E4DE 100%);
+      --ink-primary: #14171A;
+      --ink-muted: #4A525A;
+      --ink-active: #0A4A41;
+      --border-subtle: #D4D8D4;
+      --border-strong: #7A8288;
+      --accent: #0D5C51;
+      --accent-hover: #09453D;
+      --accent-ink: #FFFFFF;
+      --error: #B42318;
+      --error-bg: #FEF2F2;
+      --focus-ring: #0D5C51;
+      --shadow-hud: 0 12px 32px rgba(20, 23, 26, 0.12);
+    }
+
+    [data-theme="dark"] {
+      --bg-rail: #0F1214;
+      --bg-pane: #161B1E;
+      --bg-glass: rgba(20, 26, 30, 0.9);
+      --bg-subtle: #1E2529;
+      --bg-active: #16322E;
+      --bg-3d: radial-gradient(120% 95% at 50% 8%, #1A252A 0%, #0F1518 60%, #080B0D 100%);
+      --ink-primary: #F1F3F2;
+      --ink-muted: #A6B0B8;
+      --ink-active: #3FD4BE;
+      --border-subtle: #2A3339;
+      --border-strong: #5A6770;
+      --accent: #3FD4BE;
+      --accent-hover: #64E0CE;
+      --accent-ink: #0B1A18;
+      --error: #FCA5A5;
+      --error-bg: #2A1618;
+      --focus-ring: #3FD4BE;
+      --shadow-hud: 0 16px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    body {
+      background-color: var(--bg-rail);
+      color: var(--ink-primary);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: background-color 240ms ease, color 220ms ease;
+    }
+
     a[href],
     button:not(:disabled),
     summary,
     select:not(:disabled),
     label[for],
-    input[type="checkbox"]:not(:disabled),
-    input[type="radio"]:not(:disabled),
-    [role="button"]:not([aria-disabled="true"]) {
+    [role="button"]:not([aria-disabled="true"]),
+    [role="tab"]:not([aria-disabled="true"]) {
       cursor: pointer;
     }
 
-    button:disabled,
-    input:disabled,
-    select:disabled,
-    [aria-disabled="true"] {
+    button:disabled {
       cursor: not-allowed;
+      opacity: 0.5;
     }
 
-    .theme-dark :focus-visible {
-      outline: 3px solid #D4FF00;
+    :focus-visible {
+      outline: 3px solid var(--focus-ring);
       outline-offset: 2px;
     }
 
-    .theme-light :focus-visible {
-      outline: 3px solid #B83200;
-      outline-offset: 2px;
+    .font-editorial {
+      font-family: 'Fraunces', Georgia, serif;
     }
 
-    @keyframes marquee {
-      0% {
-        transform: translateX(0%);
-      }
+    .bg-rail { background-color: var(--bg-rail); color: var(--ink-primary); }
+    .bg-pane { background-color: var(--bg-pane); color: var(--ink-primary); }
+    .bg-glass { background-color: var(--bg-glass); color: var(--ink-primary); box-shadow: var(--shadow-hud); }
+    .bg-subtle { background-color: var(--bg-subtle); color: var(--ink-primary); }
+    .bg-active { background-color: var(--bg-active); color: var(--ink-active); }
+    .ink-muted { color: var(--ink-muted); }
+    .ink-accent { color: var(--accent); }
+    .line-subtle { border-color: var(--border-subtle); }
+    .line-strong { border-color: var(--border-strong); }
+    .bg-error { background-color: var(--error-bg); color: var(--error); border-color: var(--error); }
 
-      100% {
-        transform: translateX(-50%);
-      }
+    .btn-primary {
+      background-color: var(--accent);
+      color: var(--accent-ink);
+      border: 1.5px solid var(--accent);
+      transition: background-color 150ms ease, transform 140ms ease;
     }
 
-    .animate-marquee {
-      display: flex;
-      width: max-content;
-      animation: marquee 28s linear infinite;
+    .btn-primary:hover {
+      background-color: var(--accent-hover);
+      border-color: var(--accent-hover);
+      transform: translateY(-1px);
     }
 
-    .animate-marquee.is-paused,
-    .animate-marquee:hover {
-      animation-play-state: paused;
+    .btn-secondary {
+      background-color: var(--bg-pane);
+      color: var(--ink-primary);
+      border: 1.5px solid var(--border-strong);
+      transition: background-color 150ms ease, border-color 150ms ease, transform 140ms ease;
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--bg-subtle);
+      border-color: var(--ink-primary);
+      transform: translateY(-1px);
+    }
+
+    .zone-pin {
+      position: absolute;
+      left: 0;
+      top: 0;
+      transform: translate3d(-999px, -999px, 0);
+      will-change: transform;
+      pointer-events: auto;
+    }
+
+    .zone-pin-btn {
+      translate: -50% -100%;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 38px;
+      padding: 6px 12px;
+      border: 1.5px solid var(--border-subtle);
+      border-radius: 10px;
+      background-color: var(--bg-glass);
+      color: var(--ink-primary);
+      font-size: 12px;
+      font-weight: 700;
+      box-shadow: var(--shadow-hud);
+      white-space: nowrap;
+      transition: border-color 150ms ease, transform 150ms ease;
+    }
+
+    .zone-pin-btn:hover,
+    .zone-pin-btn[aria-pressed="true"] {
+      border-color: var(--accent);
+      background-color: var(--accent);
+      color: var(--accent-ink);
+    }
+
+    .drawer-anim {
+      animation: drawerIn 240ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    @keyframes drawerIn {
+      from { opacity: 0; transform: translateX(14px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .stagger-card {
+      animation: cardRise 320ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes cardRise {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
-
-      .animate-marquee {
-        animation: none;
-      }
-
-      *,
-      *::before,
-      *::after {
-        transition-duration: 0.01ms !important;
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-      }
+      .drawer-anim, .stagger-card { animation: none; }
+      *, *::before, *::after { transition-duration: 0.01ms !important; }
     }
   </style>
 
+  <script type="module" src="./src/studio3d.js"></script>
   <script defer crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script defer crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script defer src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script defer src="./src/data/portfolioData.js"></script>
 </head>
 
-<body class="antialiased selection:bg-[#D4FF00] selection:text-[#111111] bg-[#0B0B0C] text-[#F3EFE6]">
+<body class="antialiased overflow-x-clip">
   <div id="root"></div>
   <noscript>
-    <div style="max-width:680px;margin:48px auto;padding:24px;border:2px solid #D4FF00;font-family:sans-serif;background:#151518;color:#F3EFE6;">
-      <h1 style="margin:0 0 12px;color:#D4FF00;">MaveyyVlgd (Muhammad Adhitya Pratama)</h1>
-      <p style="margin:0 0 12px;">Halaman portofolio interaktif ini memerlukan JavaScript untuk menampilkan arsip proyek. Kamu tetap bisa membuka <a href="./kalkulatorstatistik/index.html" style="color:#D4FF00;">Kalkulator Statistik RS</a> atau profil GitHub di <a href="https://github.com/Mavey15" style="color:#D4FF00;">github.com/Mavey15</a>.</p>
+    <div style="max-width:640px;margin:48px auto;padding:24px;border:1.5px solid #0D5C51;border-radius:12px;font-family:sans-serif;background:#FFFFFF;color:#14171A;">
+      <h1 style="margin:0 0 12px;color:#0D5C51;">MaveyyVlgd (Muhammad Adhitya Pratama)</h1>
+      <p style="margin:0 0 12px;">Interactive 3D Studio requires JavaScript. You can still visit <a href="./kalkulatorstatistik/index.html" style="color:#0D5C51;">Kalkulator Statistik RS</a>, <a href="./netflix-app/index.html" style="color:#0D5C51;">StreamFlix</a>, or <a href="https://github.com/Mavey15" style="color:#0D5C51;">GitHub @Mavey15</a>.</p>
     </div>
   </noscript>
 
   <script type="text/babel">
     const { useState, useEffect, useMemo, useRef } = React;
 
-    function BarcodeGraphic({ className = "h-8" }) {
-      const bars = [3, 1, 2, 1, 4, 1, 2, 2, 1, 3, 1, 2, 1, 1, 3, 2, 1, 4, 1, 2, 1, 3];
-      return (
-        <div className={`flex items-stretch gap-[2px] ${className}`} aria-hidden="true">
-          {bars.map((w, i) => (
-            <span
-              key={i}
-              className="bg-current inline-block"
-              style={{ width: `${w * 2}px`, opacity: i % 5 === 0 ? 0.65 : 1 }}
-            />
-          ))}
-        </div>
-      );
+    const VIEWS = [
+      { id: "overview", label: "Overview", pinLabel: "Studio" },
+      { id: "projects", label: "Projects", pinLabel: "Workstation · 6 Drops" },
+      { id: "about", label: "About", pinLabel: "RMIK Archive" },
+      { id: "contact", label: "Contact", pinLabel: "Lounge & Contact" },
+    ];
+
+    function parseHash() {
+      const h = (window.location.hash || "").replace("#", "").toLowerCase();
+      if (h === "projects" || h === "about" || h === "contact" || h === "overview") return h;
+      return "overview";
     }
 
-    function StreetwearAvatarSVG({ name = "TAMA" }) {
-      return (
-        <svg
-          viewBox="0 0 400 460"
-          className="w-full h-full object-cover"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          role="img"
-          aria-label={`Portrait illustration for ${name}`}
-        >
-          <rect width="400" height="460" fill="#121215" />
-          <circle cx="200" cy="195" r="118" fill="#D4FF00" />
-          <circle
-            cx="200"
-            cy="195"
-            r="134"
-            stroke="#FF4D00"
-            strokeWidth="3"
-            strokeDasharray="10 8"
-          />
-          <path
-            d="M65 460 C65 345 110 295 200 295 C290 295 335 345 335 460 Z"
-            fill="#1E1E24"
-            stroke="#F3EFE6"
-            strokeWidth="4"
-          />
-          <path
-            d="M145 298 L200 350 L255 298"
-            fill="#FF4D00"
-            stroke="#111111"
-            strokeWidth="4"
-          />
-          <line x1="175" y1="325" x2="170" y2="405" stroke="#D4FF00" strokeWidth="5" strokeLinecap="round" />
-          <line x1="225" y1="325" x2="230" y2="405" stroke="#D4FF00" strokeWidth="5" strokeLinecap="round" />
-          <rect x="136" y="368" width="128" height="36" fill="#D4FF00" stroke="#111111" strokeWidth="3" />
-          <text
-            x="200"
-            y="391"
-            textAnchor="middle"
-            fill="#111111"
-            fontFamily="Anton, Syne, sans-serif"
-            fontSize="16"
-            fontWeight="900"
-            letterSpacing="1.5"
-          >
-            {name}
-          </text>
-          <rect x="148" y="125" width="104" height="135" rx="48" fill="#F3EFE6" stroke="#111111" strokeWidth="5" />
-          <path d="M144 170 C144 118 256 118 256 170 Z" fill="#FF4D00" stroke="#111111" strokeWidth="5" />
-          <rect x="138" y="156" width="124" height="24" rx="8" fill="#111111" stroke="#F3EFE6" strokeWidth="2" />
-          <rect x="178" y="162" width="44" height="12" fill="#D4FF00" />
-          <rect x="152" y="192" width="96" height="26" rx="6" fill="#111111" stroke="#D4FF00" strokeWidth="3" />
-          <line x1="164" y1="199" x2="195" y2="199" stroke="#D4FF00" strokeWidth="3" strokeLinecap="round" />
-          <line x1="208" y1="210" x2="236" y2="210" stroke="#FF4D00" strokeWidth="3" strokeLinecap="round" />
-          <path d="M185 236 Q200 245 216 235" stroke="#111111" strokeWidth="4" strokeLinecap="round" fill="none" />
-          <rect x="130" y="185" width="18" height="44" rx="8" fill="#D4FF00" stroke="#111111" strokeWidth="4" />
-          <rect x="252" y="185" width="18" height="44" rx="8" fill="#D4FF00" stroke="#111111" strokeWidth="4" />
-          <path d="M24 44 L24 24 L44 24" stroke="#D4FF00" strokeWidth="3" />
-          <path d="M376 44 L376 24 L356 24" stroke="#D4FF00" strokeWidth="3" />
-          <path d="M24 416 L24 436 L44 436" stroke="#D4FF00" strokeWidth="3" />
-          <path d="M376 416 L376 436 L356 436" stroke="#D4FF00" strokeWidth="3" />
-        </svg>
+    function MaveyyPortfolio3D() {
+      const data = window.PORTFOLIO_DATA;
+
+      const [theme, setTheme] = useState(() => {
+        try { return localStorage.getItem("maveyy-theme-3d") === "dark" ? "dark" : "light"; }
+        catch { return "light"; }
+      });
+      const [mode3D, setMode3D] = useState(true);
+      const [activeView, setActiveView] = useState(parseHash);
+      const [drawerOpen, setDrawerOpen] = useState(() => window.innerWidth >= 1024);
+      const [autoOrbit, setAutoOrbit] = useState(false);
+
+      const [selectedProjectId, setSelectedProjectId] = useState(() =>
+        data && data.projects && data.projects[0] ? data.projects[0].id : ""
       );
-    }
-
-    function ProjectPosterSVG({ project }) {
-      const accent = project.accentColor || "#D4FF00";
-      return (
-        <svg
-          viewBox="0 0 600 360"
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          aria-hidden="true"
-        >
-          <rect width="600" height="360" fill="#101013" />
-          <circle cx="465" cy="175" r="110" fill={accent} opacity="0.95" />
-          <circle
-            cx="465"
-            cy="175"
-            r="128"
-            stroke={accent}
-            strokeWidth="2"
-            strokeDasharray="8 6"
-          />
-          <rect
-            x="38"
-            y="46"
-            width="320"
-            height="268"
-            fill="#18181D"
-            stroke="#F3EFE6"
-            strokeWidth="2.5"
-          />
-          <rect x="38" y="46" width="320" height="34" fill={accent} />
-          <circle cx="58" cy="63" r="5" fill="#111111" />
-          <circle cx="74" cy="63" r="5" fill="#111111" />
-          <text
-            x="94"
-            y="67"
-            fill="#111111"
-            fontFamily="IBM Plex Mono, monospace"
-            fontSize="11"
-            fontWeight="700"
-          >
-            {project.dropNumber} // {project.year}
-          </text>
-
-          <text
-            x="60"
-            y="135"
-            fill="#F3EFE6"
-            fontFamily="Anton, Syne, sans-serif"
-            fontSize="28"
-            fontWeight="800"
-            letterSpacing="1"
-          >
-            {project.title.split("//")[0].trim()}
-          </text>
-          <rect x="60" y="154" width="110" height="6" fill={accent} />
-          <rect x="60" y="176" width="240" height="10" rx="2" fill="#2E2E38" />
-          <rect x="60" y="196" width="195" height="10" rx="2" fill="#2E2E38" />
-
-          <g transform="translate(60, 235)">
-            <rect width="136" height="28" fill={accent} />
-            <text
-              x="68"
-              y="18"
-              textAnchor="middle"
-              fill="#111111"
-              fontFamily="IBM Plex Mono, monospace"
-              fontSize="10"
-              fontWeight="700"
-            >
-              {project.category.toUpperCase()}
-            </text>
-          </g>
-
-          <text
-            x="465"
-            y="185"
-            textAnchor="middle"
-            fill="#111111"
-            fontFamily="Anton, Syne, sans-serif"
-            fontSize="36"
-            fontWeight="900"
-          >
-            {project.dropNumber.replace("DROP // ", "#")}
-          </text>
-        </svg>
-      );
-    }
-
-    function PortfolioApp({ data }) {
-      const { profile, about, skills, projects, contact } = data;
-
-      const [theme, setTheme] = useState("dark");
-      const [marqueePaused, setMarqueePaused] = useState(false);
       const [selectedCategory, setSelectedCategory] = useState("ALL");
       const [searchQuery, setSearchQuery] = useState("");
-      const [activeProject, setActiveProject] = useState(null);
+      const [skillTab, setSkillTab] = useState("vibecoding");
       const [copiedEmail, setCopiedEmail] = useState(false);
-      const [localTime, setLocalTime] = useState("");
-      const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
+      const [wibTime, setWibTime] = useState("--:-- WIB");
       const [senderName, setSenderName] = useState("");
       const [senderMsg, setSenderMsg] = useState("");
+      const [formError, setFormError] = useState("");
       const [msgSentNotice, setMsgSentNotice] = useState("");
+      const [avatarError, setAvatarError] = useState(false);
 
-      const modalCloseRef = useRef(null);
+      const canvasHostRef = useRef(null);
+      const sceneApiRef = useRef(null);
+      const pinElsRef = useRef(new Map());
+      const msgFieldRef = useRef(null);
+
+      const isDark = theme === "dark";
 
       useEffect(() => {
-        const updateClock = () => {
-          const now = new Date();
-          setLocalTime(
-            now.toLocaleTimeString("id-ID", {
+        document.documentElement.setAttribute("data-theme", theme);
+        const meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute("content", isDark ? "#0F1214" : "#F4F5F3");
+        try { localStorage.setItem("maveyy-theme-3d", theme); } catch {}
+      }, [theme, isDark]);
+
+      useEffect(() => {
+        const tick = () => {
+          try {
+            const f = new Intl.DateTimeFormat("en-GB", {
+              timeZone: "Asia/Jakarta",
               hour: "2-digit",
               minute: "2-digit",
-              second: "2-digit",
-            })
-          );
+              hour12: false,
+            });
+            setWibTime(`${f.format(new Date())} WIB`);
+          } catch { setWibTime("WIB +7"); }
         };
-        updateClock();
-        const timer = setInterval(updateClock, 1000);
-        return () => clearInterval(timer);
+        tick();
+        const id = setInterval(tick, 15000);
+        return () => clearInterval(id);
       }, []);
 
+      // Mount / sync Three.js 3D Studio
       useEffect(() => {
-        if (!activeProject) return;
-        const onKeyDown = (e) => {
-          if (e.key === "Escape") {
-            setActiveProject(null);
-          }
-        };
-        window.addEventListener("keydown", onKeyDown);
-        if (modalCloseRef.current) {
-          modalCloseRef.current.focus();
-        }
-        return () => window.removeEventListener("keydown", onKeyDown);
-      }, [activeProject]);
+        if (!mode3D) return;
+        let cancelled = false;
+        let retries = 0;
 
-      const categories = useMemo(() => {
-        const unique = Array.from(new Set(projects.map((p) => p.category)));
-        return ["ALL", ...unique];
-      }, [projects]);
+        const tryMount = () => {
+          if (cancelled || !canvasHostRef.current) return;
+          if (typeof window.mountMaveyyStudio3D !== "function") {
+            if (retries++ < 40) setTimeout(tryMount, 80);
+            else setMode3D(false);
+            return;
+          }
+          sceneApiRef.current = window.mountMaveyyStudio3D(canvasHostRef.current, {
+            dark: isDark,
+            activeView,
+            autoOrbit,
+            getPinEl: (id) => pinElsRef.current.get(id),
+            onUserInteract: () => setAutoOrbit(false),
+            onSelectZone: (zone) => {
+              setActiveView(zone);
+              setAutoOrbit(false);
+              if (zone !== "overview") setDrawerOpen(true);
+              history.replaceState(null, "", `#${zone}`);
+            },
+            onFallback: () => setMode3D(false),
+          });
+        };
+        tryMount();
+
+        return () => {
+          cancelled = true;
+          sceneApiRef.current?.destroy();
+          sceneApiRef.current = null;
+        };
+      }, [mode3D]);
+
+      useEffect(() => {
+        sceneApiRef.current?.update({ dark: isDark, activeView, autoOrbit });
+      }, [isDark, activeView, autoOrbit]);
+
+      useEffect(() => {
+        const onKey = (e) => {
+          if (e.key === "Escape" && mode3D && drawerOpen) setDrawerOpen(false);
+        };
+        window.addEventListener("keydown", onKey);
+        return () => window.removeEventListener("keydown", onKey);
+      }, [mode3D, drawerOpen]);
+
+      if (!data) {
+        return (
+          <main className="min-h-screen flex items-center justify-center p-6 bg-rail">
+            <div className="max-w-md p-6 rounded-xl bg-pane border line-strong">
+              <h1 className="font-editorial text-xl font-bold">Portfolio data could not be loaded</h1>
+              <p className="text-sm ink-muted mt-2">Ensure src/data/portfolioData.js is reachable and reload.</p>
+            </div>
+          </main>
+        );
+      }
+
+      const { profile, about, skills, projects, contact } = data;
+
+      const selectView = (viewId) => {
+        setActiveView(viewId);
+        setAutoOrbit(false);
+        setDrawerOpen(true);
+        history.replaceState(null, "", `#${viewId}`);
+      };
+
+      const categories = useMemo(
+        () => ["ALL", ...Array.from(new Set(projects.map((p) => p.category)))],
+        [projects]
+      );
 
       const filteredProjects = useMemo(() => {
-        return projects.filter((project) => {
-          const matchesCategory =
-            selectedCategory === "ALL" || project.category === selectedCategory;
-          const q = searchQuery.trim().toLowerCase();
-          const matchesQuery =
+        const q = searchQuery.trim().toLowerCase();
+        return projects.filter((p) => {
+          const catOk = selectedCategory === "ALL" || p.category === selectedCategory;
+          const qOk =
             !q ||
-            project.title.toLowerCase().includes(q) ||
-            project.subtitle.toLowerCase().includes(q) ||
-            project.summary.toLowerCase().includes(q) ||
-            project.techStack.some((t) => t.toLowerCase().includes(q));
-          return matchesCategory && matchesQuery;
+            p.title.toLowerCase().includes(q) ||
+            p.subtitle.toLowerCase().includes(q) ||
+            p.summary.toLowerCase().includes(q) ||
+            p.techStack.some((t) => t.toLowerCase().includes(q));
+          return catOk && qOk;
         });
       }, [projects, selectedCategory, searchQuery]);
 
-      const primarySkillCategories = skills.categories.slice(0, 2);
-      const cultureCategory = skills.categories[2];
+      const selectedProject =
+        filteredProjects.find((p) => p.id === selectedProjectId) || filteredProjects[0] || null;
+      const selectedIdx = selectedProject
+        ? filteredProjects.findIndex((p) => p.id === selectedProject.id)
+        : -1;
+
+      const liveDemoProjects = projects.filter((p) => p.liveUrl && p.liveUrl.startsWith("./"));
+      const activeSkillCat = skills.categories.find((c) => c.id === skillTab) || skills.categories[0];
 
       const handleCopyEmail = () => {
-        if (navigator.clipboard) {
-          navigator.clipboard.writeText(contact.email);
+        const done = () => {
           setCopiedEmail(true);
-          setTimeout(() => setCopiedEmail(false), 2500);
-        }
+          setTimeout(() => setCopiedEmail(false), 2400);
+        };
+        if (navigator.clipboard?.writeText) navigator.clipboard.writeText(contact.email).then(done).catch(done);
+        else done();
       };
 
-      const handleSendQuickMessage = (via) => {
-        const nameText = senderName.trim() || "New Friend";
-        const bodyText =
-          senderMsg.trim() ||
-          "Hey Tama (MaveyyVlgd)! Love your projects and would love to connect.";
-
-        if (via === "whatsapp" && contact.whatsappNumber) {
-          const text = encodeURIComponent(
-            `Hi ${profile.name}! I'm *${nameText}*.\n\n${bodyText}`
-          );
-          window.open(`https://wa.me/${contact.whatsappNumber}?text=${text}`, "_blank");
-          setMsgSentNotice("Opening WhatsApp...");
-        } else if (via === "instagram") {
-          window.open("https://www.instagram.com/a.prtamaa1/", "_blank");
-          setMsgSentNotice("Opening Instagram @a.prtamaa1...");
+      const handleDispatch = (channel, e) => {
+        if (e) e.preventDefault();
+        const trimmed = senderMsg.trim();
+        if (!trimmed) {
+          setFormError("Write a short message or project idea before sending.");
+          setMsgSentNotice("");
+          msgFieldRef.current?.focus();
+          return;
+        }
+        setFormError("");
+        const who = senderName.trim() || "Website Visitor";
+        const body = `Hi ${profile.fullName},\n\nI'm ${who}.\n\n${trimmed}`;
+        if (channel === "email") {
+          window.location.href = `mailto:${contact.email}?subject=${encodeURIComponent(
+            `Message from ${who} via MaveyyVlgd 3D Studio`
+          )}&body=${encodeURIComponent(body)}`;
+          setMsgSentNotice(`Opening your email app addressed to ${contact.email}.`);
         } else {
-          const subject = encodeURIComponent(
-            `[MAVEYYVLGD WEB] Message from ${nameText}`
-          );
-          const body = encodeURIComponent(
-            `Hi ${profile.fullName} (${profile.name}),\n\n${bodyText}\n\nBest,\n${nameText}`
-          );
-          window.location.href = `mailto:${contact.email}?subject=${subject}&body=${body}`;
-          setMsgSentNotice("Opening Email client...");
+          const ig = contact.socials.find((s) => s.platform === "Instagram");
+          if (ig) window.open(ig.url, "_blank", "noopener,noreferrer");
+          setMsgSentNotice("Opening Instagram (@a.prtamaa1) in a new tab.");
         }
-        setTimeout(() => setMsgSentNotice(""), 3500);
       };
 
-      const isDark = theme === "dark";
-      const orangeText = isDark ? "text-[#FF6A2B]" : "text-[#B83200]";
-      const mutedText = isDark ? "text-[#A3A3B0]" : "text-[#4A4A52]";
-      const showSpotlight =
-        selectedCategory === "ALL" && !searchQuery.trim() && filteredProjects.length > 0;
-
-      return (
-        <div
-          className={`min-h-screen transition-colors duration-300 ${isDark
-              ? "theme-dark bg-[#0B0B0C] text-[#F3EFE6]"
-              : "theme-light bg-[#F3EFE6] text-[#111111]"
-            }`}
-          style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-        >
-          <a
-            href="#main-content"
-            className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-3 focus:bg-[#D4FF00] focus:text-[#111111] focus:border-2 focus:border-[#111111] font-mono text-xs font-bold"
-          >
-            Skip to main content
-          </a>
-
-          <div className="bg-[#D4FF00] text-[#111111] border-b-2 border-[#111111] flex items-center">
-            <div className="overflow-hidden flex-1 py-2 select-none" aria-hidden="true">
-              <div
-                className={`animate-marquee font-mono text-xs font-bold tracking-wider ${marqueePaused ? "is-paused" : ""
-                  }`}
-              >
-                {[...profile.marqueeItems, ...profile.marqueeItems].map((item, idx) => (
-                  <span key={idx} className="mx-6 inline-flex items-center gap-3">
-                    <span className="inline-block w-2 h-2 bg-[#111111] rotate-45" />
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
-            <button
-              type="button"
-              onClick={() => setMarqueePaused(!marqueePaused)}
-              aria-pressed={marqueePaused}
-              className="min-h-[44px] min-w-[44px] px-3 border-l-2 border-[#111111] bg-[#D4FF00] text-[#111111] hover:bg-[#111111] hover:text-[#D4FF00] active:translate-y-0.5 font-mono text-[11px] font-bold uppercase shrink-0 transition-colors"
-            >
-              {marqueePaused ? "Play" : "Pause"}
-            </button>
-          </div>
-
-          <header
-            className={`sticky top-0 z-40 backdrop-blur-md border-b-2 transition-colors ${isDark
-                ? "bg-[#0B0B0C]/95 border-[#282830]"
-                : "bg-[#F3EFE6]/95 border-[#111111]"
-              }`}
-          >
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
-              <a
-                href="#hero"
-                className="flex items-center gap-3 group min-h-[44px]"
-              >
-                <div className="bg-[#D4FF00] text-[#111111] font-mono font-bold text-sm px-2.5 py-1.5 border-2 border-[#111111] shadow-[3px_3px_0px_#FF4D00] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
-                  {profile.nickname}
-                </div>
-                <div className="hidden sm:flex flex-col">
-                  <span className={`font-mono text-[11px] tracking-wide ${mutedText}`}>
-                    {profile.editionTag}
-                  </span>
-                  <span className="font-bold text-xs tracking-wide">
-                    {profile.location}
-                  </span>
-                </div>
-              </a>
-
-              <nav
-                aria-label="Primary navigation"
-                className="hidden md:flex items-center gap-1 lg:gap-2 font-mono text-xs font-bold"
-              >
-                {[
-                  { href: "#hero", label: "01 // Home" },
-                  { href: "#about", label: "02 // About" },
-                  { href: "#skills", label: "03 // Specs" },
-                  { href: "#projects", label: "04 // Drops" },
-                  { href: "#contact", label: "05 // Contact" },
-                ].map((nav) => (
-                  <a
-                    key={nav.href}
-                    href={nav.href}
-                    className={`min-h-[44px] inline-flex items-center px-3 border border-transparent transition-colors ${isDark
-                        ? "hover:border-[#D4FF00] hover:bg-[#16161B] hover:text-[#D4FF00]"
-                        : "hover:border-[#111111] hover:bg-[#D4FF00] hover:text-[#111111]"
-                      }`}
-                  >
-                    {nav.label}
-                  </a>
-                ))}
-              </nav>
-
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => setTheme(isDark ? "light" : "dark")}
-                  aria-pressed={!isDark}
-                  className={`min-h-[44px] font-mono text-xs font-bold px-3 border-2 transition-colors active:translate-y-0.5 flex items-center gap-2 ${isDark
-                      ? "bg-[#16161B] text-[#F3EFE6] border-[#F3EFE6] hover:bg-[#D4FF00] hover:text-[#111111] hover:border-[#D4FF00]"
-                      : "bg-[#111111] text-[#F3EFE6] border-[#111111] hover:bg-[#FF4D00] hover:text-[#111111]"
-                    }`}
-                >
-                  <span
-                    aria-hidden="true"
-                    className={`w-2.5 h-2.5 rounded-full ${isDark ? "bg-[#D4FF00]" : "bg-[#FF4D00]"
-                      }`}
-                  />
-                  {isDark ? "Asphalt" : "Zine Paper"}
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                  aria-expanded={mobileMenuOpen}
-                  aria-controls="mobile-nav"
-                  className={`md:hidden min-h-[44px] min-w-[44px] px-3 border-2 font-mono text-xs font-bold active:translate-y-0.5 ${isDark
-                      ? "border-[#F3EFE6] text-[#F3EFE6]"
-                      : "border-[#111111] text-[#111111]"
-                    }`}
-                >
-                  {mobileMenuOpen ? "Close" : "Menu"}
-                </button>
-              </div>
-            </div>
-
-            {mobileMenuOpen && (
-              <nav
-                id="mobile-nav"
-                aria-label="Mobile navigation"
-                className={`md:hidden border-t-2 px-4 py-4 space-y-2 font-mono text-sm font-bold ${isDark
-                    ? "bg-[#121216] border-[#282830]"
-                    : "bg-[#F3EFE6] border-[#111111]"
-                  }`}
-              >
-                {[
-                  { href: "#hero", label: "01 // Home" },
-                  { href: "#about", label: "02 // About Me" },
-                  { href: "#skills", label: "03 // The Arsenal" },
-                  { href: "#projects", label: "04 // Selected Drops" },
-                  { href: "#contact", label: "05 // Contact & Socials" },
-                ].map((nav) => (
-                  <a
-                    key={nav.href}
-                    href={nav.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`min-h-[44px] flex items-center px-3 border transition-colors ${isDark
-                        ? "border-[#2E2E38] hover:bg-[#D4FF00] hover:text-[#111111]"
-                        : "border-[#111111] hover:bg-[#D4FF00] hover:text-[#111111]"
-                      }`}
-                  >
-                    {nav.label}
-                  </a>
-                ))}
-              </nav>
-            )}
-          </header>
-
-          <main id="main-content" className="overflow-x-clip">
-            <section
-              id="hero"
-              className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 lg:pt-14 lg:pb-24"
-            >
-              <div
-                className={`flex flex-wrap items-center justify-between gap-4 pb-5 mb-8 border-b-2 font-mono text-xs ${isDark ? "border-[#282830]" : "border-[#111111]"
-                  }`}
-              >
-                <div className="flex items-center gap-3">
-                  <span className="inline-flex items-center px-2.5 py-1 bg-[#FF4D00] text-[#111111] font-bold">
-                    {profile.status}
-                  </span>
-                  <span className={`hidden sm:inline ${mutedText}`}>
-                    SN: {profile.serialCode}
-                  </span>
-                </div>
-                <div className={`flex items-center gap-4 ${mutedText}`}>
-                  <span>COORDS // {profile.coordinates}</span>
-                  {localTime && (
-                    <span
-                      className={`px-2 py-0.5 border font-bold ${isDark
-                          ? "border-[#F3EFE6] text-[#F3EFE6]"
-                          : "border-[#111111] text-[#111111]"
-                        }`}
-                    >
-                      WIB {localTime}
-                    </span>
+      // Shared view content (used inside both 3D Right Drawer AND 2D Ringkas Workspace!)
+      const renderActiveContent = () => {
+        if (activeView === "overview") {
+          return (
+            <div key="overview" className="stagger-card space-y-6">
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 rounded-xl overflow-hidden border line-subtle bg-subtle shrink-0">
+                  {!avatarError ? (
+                    <img
+                      src={profile.avatarUrl}
+                      alt={`Portrait of ${profile.fullName}`}
+                      width="64"
+                      height="64"
+                      fetchpriority="high"
+                      onError={() => setAvatarError(true)}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center font-editorial font-bold ink-accent">
+                      MV
+                    </div>
                   )}
                 </div>
+                <div className="min-w-0">
+                  <p className="font-mono text-[11px] font-semibold ink-accent">
+                    {profile.location} · {wibTime}
+                  </p>
+                  <div className="font-semibold text-base leading-tight truncate">{profile.fullName}</div>
+                  <div className="text-xs ink-muted truncate">{profile.role}</div>
+                </div>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
-                <div className="lg:col-span-7 space-y-6">
-                  <p className={`font-mono text-xs font-bold tracking-wide ${orangeText}`}>
-                    {profile.role}
-                  </p>
-
-                  <h1
-                    className="text-3xl sm:text-6xl xl:text-7xl font-extrabold uppercase leading-[0.98] tracking-tight break-words"
-                    style={{ fontFamily: "'Syne', 'Anton', sans-serif" }}
-                  >
-                    <span className="block">{profile.headlineTop}</span>
-                    <span className="inline-block bg-[#D4FF00] text-[#111111] px-3 py-1 my-1.5 border-2 border-[#111111] shadow-[5px_5px_0px_#FF4D00] transform -rotate-1">
-                      {profile.headlineAccent}
-                    </span>
-                    {profile.headlineBottom && (
-                      <span className="block">{profile.headlineBottom}</span>
-                    )}
-                  </h1>
-
-                  <p className="text-base sm:text-lg max-w-2xl leading-relaxed font-medium">
-                    {profile.shortBio}
-                  </p>
-
-                  <div className="pt-2 flex flex-wrap items-center gap-4">
-                    <a
-                      href="#projects"
-                      className="min-h-[44px] inline-flex items-center px-7 py-3.5 bg-[#D4FF00] text-[#111111] font-mono text-sm font-bold border-2 border-[#111111] shadow-[5px_5px_0px_#FF4D00] hover:translate-x-0.5 hover:-translate-y-0.5 active:translate-y-0.5 transition-all"
-                    >
-                      VIEW {projects.length} PROJECTS
-                    </a>
-                    <a
-                      href="#contact"
-                      className={`min-h-[44px] inline-flex items-center px-7 py-3.5 font-mono text-sm font-bold border-2 transition-colors active:translate-y-0.5 ${isDark
-                          ? "bg-[#16161B] text-[#F3EFE6] border-[#F3EFE6] hover:bg-[#FF4D00] hover:border-[#FF4D00] hover:text-[#111111]"
-                          : "bg-white text-[#111111] border-[#111111] shadow-[5px_5px_0px_#111111] hover:bg-[#FF4D00] hover:text-[#111111]"
-                        }`}
-                    >
-                      CONTACT & COLLAB
-                    </a>
-                  </div>
-
-                  <div className="pt-4 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-5">
-                    {profile.stats.map((st, idx) => (
-                      <div
-                        key={idx}
-                        className={`p-4 border-2 ${isDark
-                            ? "bg-[#141418] border-[#2C2C35]"
-                            : "bg-white border-[#111111] shadow-[4px_4px_0px_#111111]"
-                          }`}
-                      >
-                        <div className={`font-mono text-[11px] font-bold ${orangeText}`}>
-                          {st.code}
-                        </div>
-                        <div
-                          className="text-3xl sm:text-4xl font-extrabold mt-1"
-                          style={{ fontFamily: "'Syne', sans-serif" }}
-                        >
-                          {st.value}
-                        </div>
-                        <div className={`font-mono text-[11px] mt-1 ${mutedText}`}>
-                          {st.label}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="lg:col-span-5 relative">
-                  <div className="absolute -top-4 right-2 sm:-right-2 z-20 bg-[#FF4D00] text-[#111111] font-mono text-xs font-bold px-3.5 py-1.5 border-2 border-[#111111] shadow-[4px_4px_0px_#D4FF00] rotate-2 select-none">
-                    ARCHIVE EDITION // {profile.name}
-                  </div>
-
-                  <div
-                    className={`border-2 p-3 sm:p-4 relative ${isDark
-                        ? "bg-[#16161B] border-[#F3EFE6] shadow-[8px_8px_0px_#D4FF00]"
-                        : "bg-white border-[#111111] shadow-[8px_8px_0px_#111111]"
-                      }`}
-                  >
-                    <div className="flex items-center justify-between pb-3 mb-3 border-b-2 border-current font-mono text-xs font-bold">
-                      <span>ID // {profile.fullName.toUpperCase()}</span>
-                      <span className="px-2 py-0.5 bg-[#D4FF00] text-[#111111]">
-                        PACITAN
-                      </span>
-                    </div>
-
-                    <div className="aspect-[4/4.5] w-full overflow-hidden border-2 border-[#111111] bg-[#121215] relative group">
-                      {profile.avatarUrl ? (
-                        <>
-                          <img
-                            src={profile.avatarUrl}
-                            alt={`Portrait of ${profile.fullName}`}
-                            width="400"
-                            height="450"
-                            fetchpriority="high"
-                            className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                          />
-                          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/25" />
-                          <div className="pointer-events-none absolute top-3 left-3 px-2 py-0.5 bg-[#111111]/90 border border-[#D4FF00] font-mono text-[11px] text-[#D4FF00] font-bold">
-                            [{profile.name}]
-                          </div>
-                          <div className="pointer-events-none absolute bottom-3 left-3 right-3 flex items-end justify-between gap-2">
-                            <span className="px-2.5 py-1 bg-[#D4FF00] text-[#111111] border border-[#111111] font-mono text-xs font-bold shadow-[3px_3px_0px_#FF4D00]">
-                              {profile.fullName}
-                            </span>
-                            <span className="px-2 py-0.5 bg-[#111111]/90 text-[#F3EFE6] font-mono text-[11px] border border-white/40">
-                              {profile.serialCode}
-                            </span>
-                          </div>
-                        </>
-                      ) : (
-                        <StreetwearAvatarSVG name={profile.name} />
-                      )}
-                    </div>
-
-                    <div className="mt-4 pt-3 border-t-2 border-current flex items-center justify-between gap-4">
-                      <div className="font-mono text-[11px] leading-tight space-y-0.5">
-                        <div className="font-bold">
-                          CRAFT: VIBE CODING x RMIK
-                        </div>
-                        <div className={mutedText}>
-                          ORIGIN: {profile.location} / BY {profile.name}
-                        </div>
-                      </div>
-                      <BarcodeGraphic className="h-8 shrink-0" />
-                    </div>
-                  </div>
-                </div>
+              <div className="space-y-2.5">
+                <h1 className="font-editorial text-2xl sm:text-3xl font-bold leading-tight">
+                  {profile.headlineTop}{" "}
+                  <span className="ink-accent">{profile.headlineAccent}</span>
+                </h1>
+                <p className="text-sm leading-relaxed ink-muted">{profile.shortBio}</p>
               </div>
-            </section>
 
-            <section
-              id="about"
-              className={`py-16 lg:py-20 border-t-2 ${isDark
-                  ? "border-[#282830] bg-[#101014]"
-                  : "border-[#111111] bg-[#EAE4D7]"
-                }`}
-            >
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
-                  <div>
-                    <div className="inline-block font-mono text-xs font-bold px-3 py-1 bg-[#FF4D00] text-[#111111] mb-3">
-                      {about.sectionCode}
-                    </div>
-                    <h2
-                      className="text-3xl sm:text-5xl font-extrabold uppercase tracking-tight"
-                      style={{ fontFamily: "'Syne', sans-serif" }}
-                    >
-                      {about.title}
-                    </h2>
+              <dl className="grid grid-cols-3 gap-2.5 pt-2">
+                {profile.stats.map((st) => (
+                  <div key={st.code} className="p-3 rounded-xl bg-rail border line-subtle">
+                    <dd className="font-editorial text-xl font-bold">{st.value}</dd>
+                    <dt className="font-mono text-[10px] ink-muted mt-0.5 leading-tight">{st.label}</dt>
                   </div>
-                  <p className={`text-sm sm:text-base max-w-md ${mutedText}`}>
-                    {about.subtitle}
-                  </p>
-                </div>
+                ))}
+              </dl>
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
-                  <div
-                    className={`lg:col-span-8 p-6 sm:p-8 border-2 space-y-5 ${isDark
-                        ? "bg-[#16161C] border-[#F3EFE6]"
-                        : "bg-white border-[#111111] shadow-[6px_6px_0px_#111111]"
-                      }`}
-                  >
-                    <div className={`font-mono text-xs font-bold ${orangeText}`}>
-                      // EDITORIAL BIOGRAPHY
-                    </div>
-                    {about.paragraphs.map((para, idx) => (
-                      <p
-                        key={idx}
-                        className="text-base sm:text-lg leading-relaxed"
-                      >
-                        {para}
-                      </p>
-                    ))}
-
-                    <blockquote className="p-4 bg-[#D4FF00] text-[#111111] border-2 border-[#111111] font-mono text-sm sm:text-base font-bold">
-                      {about.quote}
-                    </blockquote>
-                  </div>
-
-                  <div
-                    className={`lg:col-span-4 p-6 border-2 flex flex-col justify-between ${isDark
-                        ? "bg-[#16161C] border-[#D4FF00] shadow-[6px_6px_0px_#D4FF00]"
-                        : "bg-[#111111] text-[#F3EFE6] border-[#111111] shadow-[6px_6px_0px_#FF4D00]"
-                      }`}
-                  >
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between border-b border-current/30 pb-3">
-                        <span className="font-mono text-xs font-bold text-[#D4FF00]">
-                          CULTURE TAG // SPEC
-                        </span>
-                        <span className="font-mono text-xs">[2026]</span>
-                      </div>
-
-                      <div className="space-y-4 pt-2 text-sm">
-                        <div>
-                          <div className="font-mono text-[11px] text-[#A3A3B0]">
-                            ON ROTATION (MUSIC)
-                          </div>
-                          <div className="font-bold mt-0.5 text-[#D4FF00]">
-                            {about.currentVibe.listeningTo}
-                          </div>
-                        </div>
-                        <div>
-                          <div className="font-mono text-[11px] text-[#A3A3B0]">
-                            VISUAL DIRECTION
-                          </div>
-                          <div className="font-bold mt-0.5">
-                            {about.currentVibe.aesthetic}
-                          </div>
-                        </div>
-                        <div>
-                          <div className="font-mono text-[11px] text-[#A3A3B0]">
-                            DAILY FUEL
-                          </div>
-                          <div className="font-bold mt-0.5">
-                            {about.currentVibe.fuel}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="pt-6 mt-6 border-t border-current/30 flex items-center justify-between">
-                      <span className="font-mono text-[11px] text-[#A3A3B0]">
-                        AUTHENTICATED BY {profile.name}
-                      </span>
-                      <BarcodeGraphic className="h-6" />
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  className={`border-t-2 ${isDark ? "border-[#2E2E38]" : "border-[#111111]"
-                    }`}
+              <div className="flex flex-wrap gap-2.5">
+                <button
+                  type="button"
+                  onClick={() => selectView("projects")}
+                  className="min-h-[44px] px-4 py-2 rounded-lg btn-primary text-xs font-semibold"
                 >
-                  {about.highlights.map((item, idx) => (
+                  Inspect {projects.length} Drops
+                </button>
+                <button
+                  type="button"
+                  onClick={() => selectView("contact")}
+                  className="min-h-[44px] px-4 py-2 rounded-lg btn-secondary text-xs font-semibold"
+                >
+                  Contact Me
+                </button>
+              </div>
+
+              <div className="space-y-2.5 pt-2 border-t line-subtle">
+                <div className="font-mono text-[11px] font-semibold ink-muted uppercase">
+                  Built-in Live Demos
+                </div>
+                <div className="grid grid-cols-1 gap-2">
+                  {liveDemoProjects.map((demo) => (
                     <div
-                      key={idx}
-                      className={`py-6 grid grid-cols-1 md:grid-cols-12 gap-4 items-baseline border-b-2 ${isDark ? "border-[#2E2E38]" : "border-[#111111]"
-                        }`}
+                      key={demo.id}
+                      className="p-3.5 rounded-xl bg-rail border line-subtle flex items-center justify-between gap-3"
                     >
-                      <div className={`md:col-span-1 font-mono text-sm font-bold ${orangeText}`}>
-                        {item.tag}
+                      <div className="min-w-0">
+                        <div className="font-semibold text-sm truncate">{demo.title}</div>
+                        <div className="text-xs ink-muted truncate">{demo.category}</div>
                       </div>
-                      <h3
-                        className="md:col-span-4 text-xl font-extrabold uppercase"
-                        style={{ fontFamily: "'Syne', sans-serif" }}
+                      <a
+                        href={demo.liveUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="min-h-[40px] px-3 rounded-lg btn-primary text-xs font-semibold inline-flex items-center shrink-0"
                       >
-                        {item.title}
-                      </h3>
-                      <p className={`md:col-span-7 text-sm sm:text-base leading-relaxed ${mutedText}`}>
-                        {item.description}
-                      </p>
+                        Launch
+                      </a>
                     </div>
                   ))}
                 </div>
               </div>
-            </section>
+            </div>
+          );
+        }
 
-            <section
-              id="skills"
-              className={`py-16 lg:py-20 border-t-2 ${isDark ? "border-[#282830]" : "border-[#111111]"
-                }`}
-            >
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
-                  <div>
-                    <div className="inline-block font-mono text-xs font-bold px-3 py-1 bg-[#D4FF00] text-[#111111] border border-[#111111] mb-3">
-                      {skills.sectionCode}
-                    </div>
-                    <h2
-                      className="text-3xl sm:text-5xl font-extrabold uppercase tracking-tight"
-                      style={{ fontFamily: "'Syne', sans-serif" }}
-                    >
-                      {skills.title}
-                    </h2>
-                  </div>
-                  <p className={`text-sm sm:text-base max-w-md ${mutedText}`}>
-                    {skills.subtitle}
-                  </p>
-                </div>
+        if (activeView === "projects") {
+          return (
+            <div key="projects" className="stagger-card space-y-4">
+              <div>
+                <p className="font-mono text-[11px] font-semibold ink-accent">
+                  WORKSTATION ARCHIVE · {filteredProjects.length} OF {projects.length}
+                </p>
+                <h2 className="font-editorial text-2xl font-bold mt-0.5">Selected Drops</h2>
+              </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-                  {primarySkillCategories.map((cat) => (
-                    <div
-                      key={cat.id}
-                      className={`border-2 p-6 flex flex-col justify-between ${isDark
-                          ? "bg-[#15151A] border-[#2E2E38]"
-                          : "bg-white border-[#111111] shadow-[6px_6px_0px_#111111]"
-                        }`}
-                    >
-                      <div>
-                        <div className="flex items-center justify-between gap-3 pb-4 mb-6 border-b-2 border-current">
-                          <h3
-                            className="text-xl font-extrabold uppercase"
-                            style={{ fontFamily: "'Syne', sans-serif" }}
-                          >
-                            {cat.name}
-                          </h3>
-                          <span className="font-mono text-[11px] font-bold px-2.5 py-1 bg-[#FF4D00] text-[#111111] shrink-0">
-                            {cat.badge}
-                          </span>
-                        </div>
+              <div>
+                <label htmlFor="project-search" className="sr-only">Search projects</label>
+                <input
+                  id="project-search"
+                  type="search"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search project or stack..."
+                  className="min-h-[44px] w-full px-3.5 py-2 rounded-lg bg-rail border line-strong text-sm"
+                />
+              </div>
 
-                        <ul className="space-y-4">
-                          {cat.items.map((skill, idx) => (
-                            <li
-                              key={idx}
-                              className={`pb-4 last:pb-0 border-b last:border-b-0 ${isDark ? "border-[#282830]" : "border-[#111111]/20"
-                                }`}
-                            >
-                              <div className="flex flex-wrap items-center justify-between gap-2">
-                                <span className="font-bold text-sm sm:text-base">
-                                  {skill.name}
-                                </span>
-                                <span
-                                  className={`font-mono text-[11px] font-bold px-2 py-0.5 border ${isDark
-                                      ? "border-[#2E2E38] text-[#D4FF00]"
-                                      : "border-[#111111] bg-[#F3EFE6] text-[#111111]"
-                                    }`}
-                                >
-                                  {skill.tag}
-                                </span>
-                              </div>
-                              <p className={`text-sm mt-1 leading-relaxed ${mutedText}`}>
-                                {skill.detail}
-                              </p>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                {cultureCategory && (
-                  <div
-                    className={`border-2 p-6 ${isDark
-                        ? "bg-[#121216] border-[#2E2E38]"
-                        : "bg-[#EAE4D7] border-[#111111]"
-                      }`}
+              <div className="flex flex-wrap gap-1.5" role="group" aria-label="Filter category">
+                {categories.map((cat) => (
+                  <button
+                    key={cat}
+                    type="button"
+                    aria-pressed={selectedCategory === cat}
+                    onClick={() => setSelectedCategory(cat)}
+                    className={`min-h-[40px] px-3 py-1.5 rounded-lg text-xs font-semibold ${
+                      selectedCategory === cat ? "btn-primary" : "btn-secondary"
+                    }`}
                   >
-                    <div className="flex flex-wrap items-center justify-between gap-3 pb-4 mb-5 border-b-2 border-current">
-                      <h3
-                        className="text-lg font-extrabold uppercase"
-                        style={{ fontFamily: "'Syne', sans-serif" }}
-                      >
-                        {cultureCategory.name}
-                      </h3>
-                      <span className="font-mono text-[11px] font-bold px-2.5 py-1 bg-[#D4FF00] text-[#111111] border border-[#111111]">
-                        {cultureCategory.badge}
-                      </span>
-                    </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                      {cultureCategory.items.map((item, idx) => (
-                        <div key={idx}>
-                          <div className={`font-mono text-[11px] font-bold ${orangeText}`}>
-                            {item.tag}
-                          </div>
-                          <div className="font-bold text-sm mt-0.5">{item.name}</div>
-                          <p className={`text-xs mt-1 leading-relaxed ${mutedText}`}>
-                            {item.detail}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
+                    {cat === "ALL" ? `All (${projects.length})` : cat}
+                  </button>
+                ))}
               </div>
-            </section>
 
-            <section
-              id="projects"
-              className={`py-16 lg:py-20 border-t-2 ${isDark
-                  ? "border-[#282830] bg-[#101014]"
-                  : "border-[#111111] bg-[#EAE4D7]"
-                }`}
-            >
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-10 gap-6">
-                  <div>
-                    <div className="inline-block font-mono text-xs font-bold px-3 py-1 bg-[#FF4D00] text-[#111111] mb-3">
-                      SEC // 03 : ARCHIVE CATALOG
-                    </div>
-                    <h2
-                      className="text-3xl sm:text-5xl font-extrabold uppercase tracking-tight"
-                      style={{ fontFamily: "'Syne', sans-serif" }}
-                    >
-                      SELECTED DROPS
-                    </h2>
-                  </div>
-
-                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                    <div className="flex flex-wrap gap-2">
-                      {categories.map((cat) => {
-                        const active = selectedCategory === cat;
-                        return (
-                          <button
-                            type="button"
-                            key={cat}
-                            onClick={() => setSelectedCategory(cat)}
-                            aria-pressed={active}
-                            className={`min-h-[44px] font-mono text-xs font-bold px-3.5 py-2 border-2 transition-colors active:translate-y-0.5 ${active
-                                ? "bg-[#D4FF00] text-[#111111] border-[#111111] shadow-[3px_3px_0px_#FF4D00]"
-                                : isDark
-                                  ? "bg-[#16161C] text-[#F3EFE6] border-[#2E2E38] hover:border-[#D4FF00]"
-                                  : "bg-white text-[#111111] border-[#111111] hover:bg-[#D4FF00]"
-                              }`}
-                          >
-                            {cat === "ALL" ? `All (${projects.length})` : cat}
-                          </button>
-                        );
-                      })}
-                    </div>
-
-                    <div>
-                      <label htmlFor="project-search" className="sr-only">
-                        Search projects or tech stack
-                      </label>
-                      <input
-                        id="project-search"
-                        type="text"
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        placeholder="Search drops or tech..."
-                        className={`min-h-[44px] w-full sm:w-56 font-mono text-xs px-3.5 py-2 border-2 ${isDark
-                            ? "bg-[#16161C] border-[#2E2E38] text-[#F3EFE6] placeholder:text-[#A3A3B0]"
-                            : "bg-white border-[#111111] text-[#111111] placeholder:text-[#4A4A52]"
-                          }`}
-                      />
-                    </div>
-                  </div>
+              {filteredProjects.length === 0 ? (
+                <div className="p-6 rounded-xl bg-rail border border-dashed line-strong text-center space-y-3">
+                  <p className="text-sm font-semibold">No projects match "{searchQuery}".</p>
+                  <button
+                    type="button"
+                    onClick={() => { setSelectedCategory("ALL"); setSearchQuery(""); }}
+                    className="min-h-[44px] px-4 rounded-lg btn-primary text-xs font-semibold"
+                  >
+                    Reset Filters
+                  </button>
                 </div>
-
-                {filteredProjects.length === 0 ? (
-                  <div className="p-12 border-2 border-dashed border-current text-center font-mono text-sm">
-                    No project drops found matching "{searchQuery}".
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {filteredProjects.map((project, index) => {
-                      const isSpotlight = showSpotlight && index === 0;
+              ) : (
+                <>
+                  <div className="grid grid-cols-1 gap-2" aria-label="Project list">
+                    {filteredProjects.map((p) => {
+                      const sel = selectedProject?.id === p.id;
                       return (
-                        <article
-                          key={project.id}
-                          className={`group border-2 flex flex-col justify-between transition-all duration-300 ${isSpotlight ? "md:col-span-2" : ""
-                            } ${isDark
-                              ? "bg-[#16161C] border-[#F3EFE6] shadow-[6px_6px_0px_#282830] hover:shadow-[8px_8px_0px_#D4FF00]"
-                              : "bg-white border-[#111111] shadow-[6px_6px_0px_#111111] hover:shadow-[8px_8px_0px_#FF4D00]"
-                            }`}
+                        <button
+                          key={p.id}
+                          type="button"
+                          aria-pressed={sel}
+                          onClick={() => setSelectedProjectId(p.id)}
+                          className={`w-full p-3 rounded-xl border text-left transition-colors ${
+                            sel ? "bg-active border-[var(--accent)]" : "bg-rail line-subtle hover:line-strong"
+                          }`}
                         >
-                          <div>
-                            <div className="px-5 py-3 border-b-2 border-current flex items-center justify-between font-mono text-xs font-bold">
-                              <div className="flex items-center gap-2">
-                                <span
-                                  aria-hidden="true"
-                                  className="inline-block w-3 h-3 border border-[#111111]"
-                                  style={{ backgroundColor: project.accentColor || "#D4FF00" }}
-                                />
-                                <span>{project.dropNumber}</span>
-                              </div>
-                              <div className="flex items-center gap-2">
-                                {isSpotlight && (
-                                  <span className="px-2 py-0.5 bg-[#D4FF00] text-[#111111] font-bold text-[11px]">
-                                    FLAGSHIP DROP
-                                  </span>
-                                )}
-                                <span className={mutedText}>[{project.year}]</span>
-                              </div>
-                            </div>
-
-                            <div className={isSpotlight ? "grid grid-cols-1 lg:grid-cols-12" : ""}>
-                              <button
-                                type="button"
-                                onClick={() => setActiveProject(project)}
-                                aria-label={`Inspect full specification for ${project.title}`}
-                                className={`block w-full text-left overflow-hidden bg-[#101013] relative ${isSpotlight
-                                    ? "lg:col-span-5 aspect-[16/10] lg:aspect-auto lg:border-r-2 border-b-2 lg:border-b-0 border-current"
-                                    : "aspect-[16/9.6] border-b-2 border-current"
-                                  }`}
-                              >
-                                {project.imageUrl ? (
-                                  <img
-                                    src={project.imageUrl}
-                                    alt={project.title}
-                                    width="600"
-                                    height="360"
-                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                                  />
-                                ) : (
-                                  <ProjectPosterSVG project={project} />
-                                )}
-                                <span className="absolute bottom-3 right-3 bg-[#111111]/95 text-[#D4FF00] border border-[#D4FF00] font-mono text-[11px] font-bold px-3 py-1.5 group-hover:bg-[#D4FF00] group-hover:text-[#111111] transition-colors">
-                                  INSPECT SPEC [+]
-                                </span>
-                              </button>
-
-                              <div className={`p-6 space-y-4 ${isSpotlight ? "lg:col-span-7 flex flex-col justify-center" : ""}`}>
-                                <div>
-                                  <div className={`font-mono text-xs font-bold ${orangeText}`}>
-                                    {project.category}: {project.subtitle}
-                                  </div>
-                                  <h3
-                                    className={`${isSpotlight ? "text-2xl sm:text-4xl" : "text-2xl sm:text-3xl"
-                                      } font-extrabold uppercase mt-1`}
-                                    style={{ fontFamily: "'Syne', sans-serif" }}
-                                  >
-                                    {project.title}
-                                  </h3>
-                                </div>
-
-                                <p className="text-sm sm:text-base leading-relaxed">
-                                  {project.summary}
-                                </p>
-
-                                <div className="flex flex-wrap gap-2 pt-1">
-                                  {project.techStack.map((tech, i) => (
-                                    <span
-                                      key={i}
-                                      className={`font-mono text-[11px] font-bold px-2.5 py-1 border ${isDark
-                                          ? "bg-[#0B0B0C] border-[#2E2E38] text-[#F3EFE6]"
-                                          : "bg-[#F3EFE6] border-[#111111] text-[#111111]"
-                                        }`}
-                                    >
-                                      #{tech}
-                                    </span>
-                                  ))}
-                                </div>
-                              </div>
-                            </div>
+                          <div className="flex items-center justify-between gap-2 font-mono text-[11px]">
+                            <span className="font-semibold ink-accent">{p.dropNumber}</span>
+                            <span className="ink-muted">{p.year}</span>
                           </div>
-
-                          <div className="px-6 py-4 border-t-2 border-current flex flex-wrap items-center justify-between gap-3 font-mono text-xs font-bold">
-                            <button
-                              type="button"
-                              onClick={() => setActiveProject(project)}
-                              className="min-h-[44px] px-4 py-2 bg-[#D4FF00] text-[#111111] border-2 border-[#111111] font-bold hover:bg-[#FF4D00] hover:text-[#111111] active:translate-y-0.5 transition-colors"
-                            >
-                              READ FULL SPEC
-                            </button>
-                            <div className="flex items-center gap-2">
-                              {project.liveUrl && (
-                                <a
-                                  href={project.liveUrl}
-                                  target="_blank"
-                                  rel="noreferrer"
-                                  className={`min-h-[44px] inline-flex items-center px-3 border-2 transition-colors ${isDark
-                                      ? "border-[#FF6A2B] text-[#FF6A2B] hover:bg-[#FF4D00] hover:text-[#111111] hover:border-[#FF4D00]"
-                                      : "border-[#B83200] text-[#B83200] hover:bg-[#B83200] hover:text-white"
-                                    }`}
-                                >
-                                  LIVE APP
-                                </a>
-                              )}
-                              {project.repoUrl && (
-                                <a
-                                  href={project.repoUrl}
-                                  target="_blank"
-                                  rel="noreferrer"
-                                  className={`min-h-[44px] inline-flex items-center px-3 border-2 transition-colors ${isDark
-                                      ? "border-[#F3EFE6] text-[#F3EFE6] hover:bg-[#D4FF00] hover:text-[#111111] hover:border-[#D4FF00]"
-                                      : "border-[#111111] text-[#111111] hover:bg-[#111111] hover:text-[#D4FF00]"
-                                    }`}
-                                >
-                                  GITHUB REPO
-                                </a>
-                              )}
-                            </div>
-                          </div>
-                        </article>
+                          <div className="font-semibold text-sm mt-0.5">{p.title}</div>
+                        </button>
                       );
                     })}
                   </div>
-                )}
-              </div>
-            </section>
 
-            <section
-              id="contact"
-              className={`py-16 lg:py-20 border-t-2 ${isDark ? "border-[#282830]" : "border-[#111111]"
-                }`}
-            >
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-                  <div className="lg:col-span-7 space-y-8">
-                    <div>
-                      <div className="inline-block font-mono text-xs font-bold px-3 py-1 bg-[#D4FF00] text-[#111111] border border-[#111111] mb-3">
-                        {contact.sectionCode}
-                      </div>
-                      <h2
-                        className="text-3xl sm:text-5xl font-extrabold uppercase leading-none tracking-tight"
-                        style={{ fontFamily: "'Syne', sans-serif" }}
-                      >
-                        {contact.headline}
-                      </h2>
-                      <p className={`mt-4 text-base sm:text-lg max-w-xl ${mutedText}`}>
-                        {contact.subheadline}
-                      </p>
-                    </div>
-
-                    <div
-                      className={`p-5 border-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4 ${isDark
-                          ? "bg-[#16161C] border-[#D4FF00]"
-                          : "bg-white border-[#111111] shadow-[5px_5px_0px_#111111]"
-                        }`}
+                  {selectedProject && (
+                    <article
+                      key={selectedProject.id}
+                      className="stagger-card p-4 rounded-xl bg-rail border line-subtle space-y-4"
                     >
                       <div>
-                        <div className={`font-mono text-[11px] ${mutedText}`}>
-                          DIRECT ELECTRONIC MAIL
+                        <div className="font-mono text-[11px] font-semibold ink-accent">
+                          {selectedProject.dropNumber} · {selectedProject.category}
                         </div>
-                        <div className="font-mono text-base sm:text-xl font-bold break-all mt-0.5">
-                          {contact.email}
-                        </div>
+                        <h3 className="font-editorial text-xl font-bold mt-0.5">
+                          {selectedProject.title}
+                        </h3>
+                        <p className="text-xs ink-muted mt-1">{selectedProject.subtitle}</p>
                       </div>
-                      <button
-                        type="button"
-                        onClick={handleCopyEmail}
-                        className="min-h-[44px] px-4 py-2.5 bg-[#D4FF00] text-[#111111] font-mono text-xs font-bold border-2 border-[#111111] shrink-0 hover:bg-[#FF4D00] hover:text-[#111111] active:translate-y-0.5 transition-colors"
-                      >
-                        {copiedEmail ? "COPIED TO CLIPBOARD" : "COPY EMAIL"}
-                      </button>
-                    </div>
 
-                    <div>
-                      <div className={`font-mono text-xs font-bold mb-3 ${mutedText}`}>
-                        // OFFICIAL CHANNELS & SOCIAL NETWORKS
+                      <p className="text-sm leading-relaxed">{selectedProject.summary}</p>
+
+                      {selectedProject.features && (
+                        <ol className="space-y-1.5 text-xs ink-muted">
+                          {selectedProject.features.map((f, i) => (
+                            <li key={i} className="flex gap-2">
+                              <span className="font-mono font-semibold ink-accent shrink-0">0{i + 1}</span>
+                              <span>{f}</span>
+                            </li>
+                          ))}
+                        </ol>
+                      )}
+
+                      <div className="flex flex-wrap gap-1.5">
+                        {selectedProject.techStack.map((t, i) => (
+                          <span key={i} className="font-mono text-[11px] px-2 py-0.5 rounded bg-subtle">
+                            {t}
+                          </span>
+                        ))}
                       </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        {contact.socials.map((soc, idx) => (
+
+                      <div className="flex flex-wrap gap-2 pt-2 border-t line-subtle">
+                        {selectedProject.liveUrl && (
                           <a
-                            key={idx}
-                            href={soc.url}
+                            href={selectedProject.liveUrl}
                             target="_blank"
                             rel="noreferrer"
-                            className={`min-h-[44px] p-4 border-2 flex items-center justify-between group transition-all hover:-translate-y-0.5 ${isDark
-                                ? "bg-[#15151A] border-[#2E2E38] hover:border-[#D4FF00]"
-                                : "bg-white border-[#111111] shadow-[4px_4px_0px_#111111] hover:bg-[#D4FF00]"
-                              }`}
+                            className="min-h-[44px] px-4 rounded-lg btn-primary text-xs font-semibold inline-flex items-center"
                           >
-                            <div>
-                              <div className={`font-mono text-[11px] font-bold ${orangeText}`}>
-                                {soc.tag}
-                              </div>
-                              <div
-                                className="text-lg font-extrabold uppercase"
-                                style={{ fontFamily: "'Syne', sans-serif" }}
-                              >
-                                {soc.platform}
-                              </div>
-                              <div className={`font-mono text-xs ${mutedText}`}>
-                                {soc.handle}
-                              </div>
-                            </div>
-                            <span className="font-mono text-xs font-bold underline">
-                              OPEN
-                            </span>
+                            Open Live App
                           </a>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="lg:col-span-5">
-                    <div
-                      className={`p-6 sm:p-8 border-2 ${isDark
-                          ? "bg-[#16161C] border-[#F3EFE6] shadow-[8px_8px_0px_#FF4D00]"
-                          : "bg-white border-[#111111] shadow-[8px_8px_0px_#111111]"
-                        }`}
-                    >
-                      <div className="flex items-center justify-between pb-4 mb-6 border-b-2 border-current">
-                        <div>
-                          <div className={`font-mono text-[11px] font-bold ${orangeText}`}>
-                            INSTANT DISPATCH
-                          </div>
-                          <h3
-                            className="text-2xl font-extrabold uppercase"
-                            style={{ fontFamily: "'Syne', sans-serif" }}
-                          >
-                            SEND A MESSAGE
-                          </h3>
-                        </div>
-                        <BarcodeGraphic className="h-7" />
-                      </div>
-
-                      <div className="space-y-4">
-                        <div>
-                          <label
-                            htmlFor="sender-name"
-                            className="block font-mono text-xs font-bold mb-1.5"
-                          >
-                            01 // Your Name or Brand
-                          </label>
-                          <input
-                            id="sender-name"
-                            type="text"
-                            value={senderName}
-                            onChange={(e) => setSenderName(e.target.value)}
-                            placeholder="e.g., Alex / Creative Studio"
-                            className={`min-h-[44px] w-full px-3.5 py-2.5 border-2 font-mono text-sm ${isDark
-                                ? "bg-[#0B0B0C] border-[#2E2E38] text-[#F3EFE6] placeholder:text-[#A3A3B0]"
-                                : "bg-[#F3EFE6] border-[#111111] text-[#111111] placeholder:text-[#4A4A52]"
-                              }`}
-                          />
-                        </div>
-
-                        <div>
-                          <label
-                            htmlFor="sender-msg"
-                            className="block font-mono text-xs font-bold mb-1.5"
-                          >
-                            02 // Project Details or Message
-                          </label>
-                          <textarea
-                            id="sender-msg"
-                            rows={4}
-                            value={senderMsg}
-                            onChange={(e) => setSenderMsg(e.target.value)}
-                            placeholder="Tell me about your project idea, collaboration, or just say hi..."
-                            className={`w-full px-3.5 py-2.5 border-2 font-mono text-sm ${isDark
-                                ? "bg-[#0B0B0C] border-[#2E2E38] text-[#F3EFE6] placeholder:text-[#A3A3B0]"
-                                : "bg-[#F3EFE6] border-[#111111] text-[#111111] placeholder:text-[#4A4A52]"
-                              }`}
-                          />
-                        </div>
-
-                        {msgSentNotice && (
-                          <div
-                            role="status"
-                            className="p-3 bg-[#D4FF00] text-[#111111] font-mono text-xs font-bold"
-                          >
-                            {msgSentNotice}
-                          </div>
                         )}
-
-                        <div className="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-3">
-                          <button
-                            type="button"
-                            onClick={() => handleSendQuickMessage("email")}
-                            className="min-h-[44px] w-full py-3 px-4 bg-[#D4FF00] text-[#111111] border-2 border-[#111111] font-mono text-xs font-bold hover:bg-[#FF4D00] hover:text-[#111111] active:translate-y-0.5 transition-colors"
+                        {selectedProject.repoUrl && (
+                          <a
+                            href={selectedProject.repoUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="min-h-[44px] px-4 rounded-lg btn-secondary text-xs font-semibold inline-flex items-center"
                           >
-                            SEND VIA EMAIL
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() =>
-                              handleSendQuickMessage(
-                                contact.whatsappNumber ? "whatsapp" : "instagram"
-                              )
-                            }
-                            className={`min-h-[44px] w-full py-3 px-4 border-2 font-mono text-xs font-bold active:translate-y-0.5 transition-colors ${isDark
-                                ? "bg-[#111111] text-[#F3EFE6] border-[#F3EFE6] hover:bg-[#D4FF00] hover:text-[#111111] hover:border-[#D4FF00]"
-                                : "bg-[#111111] text-white border-[#111111] hover:bg-[#FF4D00] hover:text-[#111111]"
-                              }`}
-                          >
-                            {contact.whatsappNumber
-                              ? "CHAT WHATSAPP"
-                              : "DM INSTAGRAM"}
-                          </button>
-                        </div>
+                            GitHub Repo
+                          </a>
+                        )}
                       </div>
 
-                      <div className={`mt-6 pt-4 border-t border-current/20 font-mono text-xs ${mutedText}`}>
-                        BASE: {contact.locationNote}
+                      <div className="flex items-center justify-between gap-2 pt-2 border-t line-subtle">
+                        <button
+                          type="button"
+                          disabled={selectedIdx <= 0}
+                          onClick={() => selectedIdx > 0 && setSelectedProjectId(filteredProjects[selectedIdx - 1].id)}
+                          className="min-h-[40px] px-3 rounded-lg btn-secondary text-xs font-semibold"
+                        >
+                          Previous
+                        </button>
+                        <span className="font-mono text-xs ink-muted">
+                          {selectedIdx + 1} / {filteredProjects.length}
+                        </span>
+                        <button
+                          type="button"
+                          disabled={selectedIdx >= filteredProjects.length - 1}
+                          onClick={() =>
+                            selectedIdx < filteredProjects.length - 1 &&
+                            setSelectedProjectId(filteredProjects[selectedIdx + 1].id)
+                          }
+                          className="min-h-[40px] px-3 rounded-lg btn-secondary text-xs font-semibold"
+                        >
+                          Next
+                        </button>
                       </div>
-                    </div>
-                  </div>
+                    </article>
+                  )}
+                </>
+              )}
+            </div>
+          );
+        }
+
+        if (activeView === "about") {
+          return (
+            <div key="about" className="stagger-card space-y-5">
+              <div>
+                <p className="font-mono text-[11px] font-semibold ink-accent">RMIK ARCHIVE & MANIFESTO</p>
+                <h2 className="font-editorial text-2xl font-bold mt-0.5">{about.title}</h2>
+              </div>
+
+              <blockquote className="pl-4 border-l-4 border-[var(--accent)] font-editorial text-base leading-snug">
+                {about.quote}
+              </blockquote>
+
+              <div className="space-y-3 text-sm leading-relaxed ink-muted">
+                {about.paragraphs.map((p, i) => <p key={i}>{p}</p>)}
+              </div>
+
+              <div className="pt-2 border-t line-subtle space-y-3">
+                <div role="tablist" aria-label="Skill domains" className="flex flex-wrap gap-1.5">
+                  {skills.categories.map((cat) => (
+                    <button
+                      key={cat.id}
+                      type="button"
+                      role="tab"
+                      aria-selected={activeSkillCat.id === cat.id}
+                      onClick={() => setSkillTab(cat.id)}
+                      className={`min-h-[40px] px-3 rounded-lg text-xs font-semibold ${
+                        activeSkillCat.id === cat.id ? "btn-primary" : "btn-secondary"
+                      }`}
+                    >
+                      {cat.id === "vibecoding" ? "Vibe Coding" : cat.id === "rmik" ? "RMIK Domain" : "Daily Culture"}
+                    </button>
+                  ))}
                 </div>
-              </div>
-            </section>
-          </main>
 
-          <footer
-            className={`border-t-2 py-8 font-mono text-xs ${isDark
-                ? "bg-[#08080A] border-[#282830] text-[#F3EFE6]"
-                : "bg-[#111111] border-[#111111] text-[#F3EFE6]"
-              }`}
-          >
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3">
-                <span className="px-2 py-1 bg-[#D4FF00] text-[#111111] font-bold">
-                  {profile.nickname}
-                </span>
-                <span>
-                  © {new Date().getFullYear()} {profile.fullName}. All rights reserved.
-                </span>
-              </div>
-              <div className="flex items-center gap-4">
-                <span className="text-[#A3A3B0]">STREETWEAR ARCHIVE EDITION</span>
-                <a
-                  href="#hero"
-                  className="min-h-[44px] inline-flex items-center px-3 border border-[#D4FF00] text-[#D4FF00] font-bold hover:bg-[#D4FF00] hover:text-[#111111] transition-colors"
-                >
-                  BACK TO TOP
-                </a>
+                <ul role="tabpanel" className="divide-y line-subtle border-t line-subtle">
+                  {activeSkillCat.items.map((item) => (
+                    <li key={item.name} className="py-3 space-y-1">
+                      <div className="flex items-baseline justify-between gap-2">
+                        <span className="font-semibold text-sm">{item.name}</span>
+                        <span className="font-mono text-[10px] px-2 py-0.5 rounded bg-subtle shrink-0">
+                          {item.tag}
+                        </span>
+                      </div>
+                      <p className="text-xs ink-muted leading-relaxed">{item.detail}</p>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
-          </footer>
+          );
+        }
 
-          {activeProject && (
-            <div
-              role="dialog"
-              aria-modal="true"
-              aria-labelledby="modal-project-title"
-              className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto"
-              onClick={() => setActiveProject(null)}
-            >
-              <div
-                onClick={(e) => e.stopPropagation()}
-                className={`max-w-2xl w-full border-2 p-6 sm:p-8 relative my-8 ${isDark
-                    ? "bg-[#141419] text-[#F3EFE6] border-[#D4FF00] shadow-[10px_10px_0px_#D4FF00]"
-                    : "bg-[#F3EFE6] text-[#111111] border-[#111111] shadow-[10px_10px_0px_#FF4D00]"
-                  }`}
+        return (
+          <div key="contact" className="stagger-card space-y-5">
+            <div>
+              <p className="font-mono text-[11px] font-semibold ink-accent">LOUNGE & DIRECT CHANNELS</p>
+              <h2 className="font-editorial text-2xl font-bold mt-0.5">{contact.headline}</h2>
+              <p className="text-sm ink-muted mt-2 leading-relaxed">{contact.subheadline}</p>
+            </div>
+
+            <div className="p-3.5 rounded-xl bg-rail border line-subtle flex items-center justify-between gap-3">
+              <div className="min-w-0">
+                <div className="font-mono text-[10px] ink-muted">Direct Email</div>
+                <div className="font-mono text-xs font-semibold break-all">{contact.email}</div>
+              </div>
+              <button
+                type="button"
+                onClick={handleCopyEmail}
+                className="min-h-[40px] px-3.5 rounded-lg btn-primary text-xs font-semibold shrink-0"
               >
-                <div className="flex items-center justify-between gap-3 pb-4 mb-6 border-b-2 border-current">
-                  <div className="font-mono text-xs font-bold">
-                    <span className="px-2 py-1 bg-[#FF4D00] text-[#111111] mr-2">
-                      {activeProject.dropNumber}
-                    </span>
-                    <span>
-                      {activeProject.category} // {activeProject.year}
-                    </span>
-                  </div>
-                  <button
-                    ref={modalCloseRef}
-                    type="button"
-                    onClick={() => setActiveProject(null)}
-                    className="min-h-[44px] font-mono text-xs font-bold px-3.5 py-2 bg-[#D4FF00] text-[#111111] border-2 border-[#111111] hover:bg-[#FF4D00] active:translate-y-0.5 transition-colors"
+                {copiedEmail ? "Copied!" : "Copy Email"}
+              </button>
+            </div>
+
+            <ul className="divide-y line-subtle border-y line-subtle">
+              {contact.socials.map((soc) => (
+                <li key={soc.platform}>
+                  <a
+                    href={soc.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="min-h-[48px] py-2.5 flex items-center justify-between gap-2 hover:opacity-80"
                   >
-                    CLOSE [ESC]
+                    <div className="min-w-0">
+                      <div className="font-semibold text-sm">{soc.platform}</div>
+                      <div className="font-mono text-xs ink-muted truncate">{soc.handle}</div>
+                    </div>
+                    <span className="font-mono text-xs font-semibold ink-accent">Open</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+
+            <form onSubmit={(e) => handleDispatch("email", e)} noValidate className="space-y-3">
+              <div className="space-y-1">
+                <label htmlFor="sender-name" className="block text-xs font-semibold">Your Name</label>
+                <input
+                  id="sender-name"
+                  type="text"
+                  value={senderName}
+                  onChange={(e) => setSenderName(e.target.value)}
+                  placeholder="Your Name"
+                  className="min-h-[44px] w-full px-3 py-2 rounded-lg bg-rail border line-strong text-sm"
+                />
+              </div>
+              <div className="space-y-1">
+                <label htmlFor="sender-msg" className="block text-xs font-semibold">Message</label>
+                <textarea
+                  ref={msgFieldRef}
+                  id="sender-msg"
+                  rows={3}
+                  value={senderMsg}
+                  onChange={(e) => { setSenderMsg(e.target.value); if (formError) setFormError(""); }}
+                  placeholder="Drop your project idea or question..."
+                  className="w-full px-3 py-2 rounded-lg bg-rail border line-strong text-sm"
+                />
+              </div>
+              {formError && (
+                <div role="alert" className="p-2.5 rounded-lg border bg-error text-xs font-semibold">
+                  Error: {formError}
+                </div>
+              )}
+              {msgSentNotice && (
+                <div role="status" className="p-2.5 rounded-lg bg-active text-xs font-semibold">
+                  {msgSentNotice}
+                </div>
+              )}
+              <div className="grid grid-cols-2 gap-2">
+                <button type="submit" className="min-h-[44px] rounded-lg btn-primary text-xs font-semibold">
+                  Send via Email
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleDispatch("instagram")}
+                  className="min-h-[44px] rounded-lg btn-secondary text-xs font-semibold"
+                >
+                  DM Instagram
+                </button>
+              </div>
+            </form>
+          </div>
+        );
+      };
+
+      // Mode 2D Ringkas
+      if (!mode3D) {
+        return (
+          <div className="min-h-screen bg-rail">
+            <header className="sticky top-0 z-40 bg-pane border-b line-subtle">
+              <div className="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2.5">
+                  <span className="font-editorial font-bold text-base">{profile.name}</span>
+                  <span className="font-mono text-xs ink-muted hidden sm:inline">Mode 2D Ringkas</span>
+                </div>
+                <nav aria-label="2D Sections" className="hidden md:flex items-center gap-1">
+                  {VIEWS.map((v) => (
+                    <button
+                      key={v.id}
+                      type="button"
+                      onClick={() => selectView(v.id)}
+                      className={`min-h-[44px] px-3 rounded-lg text-xs font-semibold ${
+                        activeView === v.id ? "btn-primary" : "btn-secondary"
+                      }`}
+                    >
+                      {v.label}
+                    </button>
+                  ))}
+                </nav>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setMode3D(true)}
+                    className="min-h-[44px] px-3.5 rounded-lg btn-primary text-xs font-semibold"
+                  >
+                    Masuk 3D Studio
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setTheme(isDark ? "light" : "dark")}
+                    className="min-h-[44px] px-3 rounded-lg btn-secondary text-xs font-semibold"
+                  >
+                    {isDark ? "Light" : "Dark"}
                   </button>
                 </div>
-
-                <h3
-                  id="modal-project-title"
-                  className="text-2xl sm:text-4xl font-extrabold uppercase"
-                  style={{ fontFamily: "'Syne', sans-serif" }}
-                >
-                  {activeProject.title}
-                </h3>
-                <p className={`font-mono text-xs font-bold mt-1 ${orangeText}`}>
-                  {activeProject.subtitle}
-                </p>
-
-                <div className="mt-5 space-y-4 text-sm sm:text-base">
-                  <p className="leading-relaxed">{activeProject.summary}</p>
-
-                  {activeProject.challenge && (
-                    <div
-                      className={`p-4 border-l-4 border-[#D4FF00] ${isDark ? "bg-[#0B0B0C]" : "bg-white border border-[#111111]"
-                        }`}
-                    >
-                      <div className={`font-mono text-xs font-bold mb-1 ${orangeText}`}>
-                        // THE CHALLENGE & CONCEPT
-                      </div>
-                      <p className="text-sm leading-relaxed">
-                        {activeProject.challenge}
-                      </p>
-                    </div>
-                  )}
-
-                  {activeProject.features && (
-                    <div>
-                      <div className="font-mono text-xs font-bold mb-2">
-                        // KEY FEATURES & SPECS
-                      </div>
-                      <ul className="space-y-1.5 text-sm list-disc pl-5">
-                        {activeProject.features.map((feat, i) => (
-                          <li key={i}>{feat}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  <div className="pt-2">
-                    <div className="font-mono text-xs font-bold mb-2">
-                      // TECH STACK
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      {activeProject.techStack.map((t, i) => (
-                        <span
-                          key={i}
-                          className="font-mono text-xs font-bold px-2.5 py-1 bg-[#D4FF00] text-[#111111] border border-[#111111]"
-                        >
-                          #{t}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-8 pt-4 border-t-2 border-current flex flex-wrap items-center justify-between gap-4">
-                  <div className="flex flex-wrap items-center gap-3">
-                    {activeProject.liveUrl && (
-                      <a
-                        href={activeProject.liveUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="min-h-[44px] inline-flex items-center px-5 py-2.5 bg-[#D4FF00] text-[#111111] border-2 border-[#111111] font-mono text-xs font-bold hover:bg-[#FF4D00] transition-colors"
-                      >
-                        OPEN LIVE APP
-                      </a>
-                    )}
-                    {activeProject.repoUrl && (
-                      <a
-                        href={activeProject.repoUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="min-h-[44px] inline-flex items-center px-5 py-2.5 border-2 border-current font-mono text-xs font-bold hover:bg-[#D4FF00] hover:text-[#111111] hover:border-[#111111] transition-colors"
-                      >
-                        VIEW SOURCE CODE
-                      </a>
-                    )}
-                  </div>
-                  <BarcodeGraphic className="h-6" />
-                </div>
               </div>
+            </header>
+
+            <main className="max-w-3xl mx-auto px-4 py-8 pb-24">
+              <div className="p-6 sm:p-8 rounded-2xl bg-pane border line-subtle">
+                {renderActiveContent()}
+              </div>
+            </main>
+
+            <nav aria-label="Mobile 2D navigation" className="md:hidden fixed bottom-0 left-0 right-0 bg-pane border-t line-subtle grid grid-cols-4">
+              {VIEWS.map((v) => (
+                <button
+                  key={v.id}
+                  type="button"
+                  onClick={() => selectView(v.id)}
+                  className={`min-h-[54px] text-xs font-semibold ${
+                    activeView === v.id ? "ink-accent border-t-2 border-[var(--accent)]" : "ink-muted"
+                  }`}
+                >
+                  {v.label}
+                </button>
+              ))}
+            </nav>
+          </div>
+        );
+      }
+
+      // Mode Utama: Full Interactive 3D Studio + Right Drawer
+      return (
+        <div
+          className="fixed inset-0 overflow-hidden"
+          style={{ background: "var(--bg-3d)" }}
+        >
+          <a
+            href="#studio-drawer"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2.5 rounded-lg btn-primary text-xs font-semibold"
+          >
+            Skip to studio content
+          </a>
+
+          {/* Fullscreen 3D Canvas */}
+          <div ref={canvasHostRef} className="absolute inset-0 w-full h-full" />
+
+          {/* Interactive 3D Floating Zone Pins */}
+          <div className="absolute inset-0 pointer-events-none z-10">
+            {VIEWS.filter((v) => v.id !== "overview").map((v) => (
+              <div
+                key={v.id}
+                className="zone-pin"
+                ref={(el) => {
+                  if (el) pinElsRef.current.set(v.id, el);
+                  else pinElsRef.current.delete(v.id);
+                }}
+              >
+                <button
+                  type="button"
+                  aria-pressed={activeView === v.id}
+                  onClick={() => selectView(v.id)}
+                  className="zone-pin-btn"
+                >
+                  <span className="w-2 h-2 rounded-full bg-current" aria-hidden="true" />
+                  <span>{v.pinLabel}</span>
+                </button>
+              </div>
+            ))}
+          </div>
+
+          {/* Top Floating Studio Header */}
+          <header className="absolute top-0 left-0 right-0 z-20 p-3 sm:p-4 flex flex-wrap items-center justify-between gap-2.5 pointer-events-none">
+            <button
+              type="button"
+              onClick={() => selectView("overview")}
+              className="pointer-events-auto min-h-[46px] px-3.5 py-2 rounded-2xl bg-glass border line-subtle flex items-center gap-2.5 text-left"
+            >
+              <span className="w-8 h-8 rounded-lg overflow-hidden border line-subtle bg-subtle shrink-0 inline-block">
+                {!avatarError ? (
+                  <img src={profile.avatarUrl} alt={profile.fullName} width="32" height="32" className="w-full h-full object-cover" />
+                ) : (
+                  <span className="w-full h-full flex items-center justify-center font-editorial text-xs font-bold ink-accent">MV</span>
+                )}
+              </span>
+              <span className="leading-tight">
+                <span className="block font-editorial font-bold text-sm">{profile.name}</span>
+                <span className="block font-mono text-[10px] ink-muted">{wibTime} · Pacitan</span>
+              </span>
+            </button>
+
+            <nav
+              aria-label="Studio zones"
+              className="pointer-events-auto order-3 lg:order-2 w-full lg:w-auto flex items-center justify-between lg:justify-center gap-1 p-1 rounded-xl bg-glass border line-subtle"
+            >
+              {VIEWS.map((v) => (
+                <button
+                  key={v.id}
+                  type="button"
+                  aria-pressed={activeView === v.id}
+                  onClick={() => selectView(v.id)}
+                  className={`flex-1 lg:flex-none min-h-[40px] px-3.5 rounded-lg text-xs font-semibold transition-colors ${
+                    activeView === v.id ? "btn-primary" : "ink-muted hover:bg-subtle"
+                  }`}
+                >
+                  {v.id === "projects" ? `Projects (${projects.length})` : v.label}
+                </button>
+              ))}
+            </nav>
+
+            <div className="pointer-events-auto order-2 lg:order-3 flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setMode3D(false)}
+                className="min-h-[44px] px-3 rounded-xl bg-glass border line-subtle text-xs font-semibold hover:border-[var(--accent)]"
+              >
+                Mode 2D
+              </button>
+              <button
+                type="button"
+                aria-pressed={isDark}
+                onClick={() => setTheme(isDark ? "light" : "dark")}
+                className="min-h-[44px] px-3 rounded-xl bg-glass border line-subtle text-xs font-semibold hover:border-[var(--accent)]"
+              >
+                {isDark ? "Night" : "Light"}
+              </button>
+              <button
+                type="button"
+                aria-expanded={drawerOpen}
+                onClick={() => setDrawerOpen((o) => !o)}
+                className="min-h-[44px] px-3.5 rounded-xl btn-primary text-xs font-semibold"
+              >
+                {drawerOpen ? "Tutup Panel" : "Buka Panel"}
+              </button>
             </div>
+          </header>
+
+          {/* Bottom-Left 3D Camera Controls */}
+          <nav
+            aria-label="3D Camera Controls"
+            className="absolute left-3 sm:left-4 bottom-3 sm:bottom-4 z-20 flex items-center gap-1.5 p-1.5 rounded-2xl bg-glass border line-subtle"
+          >
+            <button
+              type="button"
+              aria-pressed={autoOrbit}
+              onClick={() => {
+                setActiveView("overview");
+                setAutoOrbit((v) => !v);
+              }}
+              className={`min-h-[40px] px-3 rounded-lg text-xs font-semibold ${
+                autoOrbit ? "btn-primary" : "bg-pane border line-subtle"
+              }`}
+            >
+              {autoOrbit ? "Auto Orbit: On" : "Orbit Bebas"}
+            </button>
+            <button
+              type="button"
+              aria-label="Zoom in"
+              onClick={() => sceneApiRef.current?.triggerCam("zoomIn")}
+              className="min-h-[40px] min-w-[40px] rounded-lg bg-pane border line-subtle text-sm font-bold"
+            >
+              +
+            </button>
+            <button
+              type="button"
+              aria-label="Zoom out"
+              onClick={() => sceneApiRef.current?.triggerCam("zoomOut")}
+              className="min-h-[40px] min-w-[40px] rounded-lg bg-pane border line-subtle text-sm font-bold"
+            >
+              -
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setActiveView("overview");
+                sceneApiRef.current?.triggerCam("reset");
+              }}
+              className="min-h-[40px] px-3 rounded-lg bg-pane border line-subtle text-xs font-semibold"
+            >
+              Reset
+            </button>
+            <span className="hidden xl:inline px-2 font-mono text-[11px] ink-muted">
+              Seret 360° · Scroll zoom · Klik zona 3D
+            </span>
+          </nav>
+
+          {/* Right Collapsible Studio Content Drawer */}
+          {drawerOpen && (
+            <main
+              id="studio-drawer"
+              className="drawer-anim absolute z-30 right-3 sm:right-4 bottom-16 sm:bottom-4 left-3 sm:left-auto sm:w-[410px] top-auto sm:top-[76px] max-h-[60vh] sm:max-h-none rounded-2xl bg-glass border line-subtle flex flex-col overflow-hidden"
+            >
+              <div className="flex-1 overflow-y-auto p-5">
+                {renderActiveContent()}
+              </div>
+            </main>
           )}
         </div>
       );
     }
 
     const root = ReactDOM.createRoot(document.getElementById("root"));
-    root.render(<PortfolioApp data={window.PORTFOLIO_DATA} />);
+    root.render(<MaveyyPortfolio3D />);
   </script>
 </body>
 
